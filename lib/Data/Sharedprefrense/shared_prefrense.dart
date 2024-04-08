@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenses{
 
- static String key='isLogin';
+ static String key='isLogin'; 
    
  
 
