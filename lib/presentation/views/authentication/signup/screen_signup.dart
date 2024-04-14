@@ -2,7 +2,7 @@ import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/s
 import 'package:crowd_verse/presentation/views/authentication/signup/widgets/email_verify.dart';
 import 'package:crowd_verse/utils/core/functions.dart';
 import 'package:crowd_verse/utils/core/height_width.dart';
-import 'package:crowd_verse/presentation/views/authentication/signup/widgets/google_auth.wdget.dart';
+import 'package:crowd_verse/presentation/widgets/google_auth.wdget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/auth/user.dart';
@@ -97,7 +97,7 @@ class ScreenSignup extends StatelessWidget {
   BlocConsumer<SignupBloc, SignupState>(
   listener: (context, state) {
     if (state is SignUpSuccessState) {
-      kNavigationPush(context, EmailverifyWidget(token:state.confirmToken,));
+      kNavigationPushRemoveUntil(context, EmailverifyWidget(token:state.confirmToken ));
     } else if ( state is SignUpErroeState){
        kSnakBar(context, state.error, kClrLiteRed);
     }
@@ -110,7 +110,7 @@ class ScreenSignup extends StatelessWidget {
          children: [
            LoginSignUpButtonWidget(
             text: 'Create Account',
-           ),
+            ),
           Center(child:  CircularProgressIndicator())
          ],
        );

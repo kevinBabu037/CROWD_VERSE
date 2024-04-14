@@ -1,15 +1,19 @@
 
+import 'package:crowd_verse/utils/core/color.dart';
 import 'package:crowd_verse/utils/core/functions.dart';
 import 'package:crowd_verse/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
-import '../../verifyOtp/widgets/otp_textform_widget.dart';
+import 'otp_textform_widget.dart';
 import 'reset_pass.dart';
 
 class ScreenVerifyOtp extends StatelessWidget {
-   ScreenVerifyOtp({super.key, required this.token});
-   final String token;
+   ScreenVerifyOtp({
+    super.key, 
+    // required this.token
+    });
+  //  final String token;
 
   final  cntrlr1=TextEditingController();
   final  cntrlr2=TextEditingController();
@@ -57,8 +61,11 @@ class ScreenVerifyOtp extends StatelessWidget {
                 LoginSignUpButtonWidget(onPressed: (){ 
                  String otp="${cntrlr1.text}${cntrlr2.text}${cntrlr3.text}${cntrlr4.text}";
                 if(_formKey.currentState!.validate()&&otp.length==4){
-                   kNavigationPush(context, ScreenResetPassword(otp: otp,token: token,)); 
+                   kNavigationPush(context, ScreenResetPassword(otp: otp,)); 
+                }else{
+                  kSnakBar(context,'Enter 4 digit otp to Proceed',kClrLiteRed); 
                 }
+                
                 },
                  text: 'Next' 
                  ),

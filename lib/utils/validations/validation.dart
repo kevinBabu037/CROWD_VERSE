@@ -25,6 +25,8 @@ class Validator {
 
    }
 
+   ///////////////////
+
     static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'required';
@@ -53,5 +55,17 @@ class Validator {
     return null;
   }
     
+  
+ ///////////////////////
+    
+   static String? aboutTxtValidator(String? value){
+      value!.trim(); 
+       if ( value.length>140) {
+         return " Please keep it within 140 characters"; 
+       }
+       return null;
+    }
+
+
 
 }

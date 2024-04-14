@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class BuildTextFormField extends StatelessWidget {
-   BuildTextFormField({
+    BuildTextFormField({
     super.key,
     required this.hintTxt,
-     required this.prfixIcon,
+      this.prfixIcon,
       this.controller,
       this.validator,
-     
+     this.obscureTxt=false
       
   });
   final String hintTxt;
-  final IconData prfixIcon;
+   IconData? prfixIcon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-  
+   bool obscureTxt;
   @override
   Widget build(BuildContext context) { 
     return TextFormField(
+      obscureText: obscureTxt,
       controller:controller ,
       validator: validator, 
       decoration: InputDecoration(

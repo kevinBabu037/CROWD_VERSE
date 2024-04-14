@@ -44,6 +44,8 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   shared_preferences: ^2.2.2
   intl: ^0.19.0
+  image_picker: ^1.0.7
+  shimmer: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +72,8 @@ flutter:
     - assets/discord.png
     - assets/goole_logo.webp
     - assets/sucess.png
+    - assets/defalt_cover_pic1.png
+    - assets/default_profile_pic.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

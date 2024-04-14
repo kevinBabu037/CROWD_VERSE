@@ -1,11 +1,11 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:crowd_verse/utils/core/endpoints.dart';
-import 'package:crowd_verse/data/models/profile/profile_modle.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
 import 'package:http/http.dart' as http;
+
+import '../../models/profile/profile_modle.dart';
 
 class ProfileServices{
 
@@ -14,7 +14,7 @@ class ProfileServices{
    final accessToken = await SecureStorage().readSecureData('AccessToken'); 
    final refreshToken = await SecureStorage().readSecureData('RefresToken');
     try {
-      final response=await http.get(
+      final response=await http.get( 
         url, 
         headers: {
           "AccessToken":accessToken,
@@ -22,18 +22,227 @@ class ProfileServices{
         } 
         );  
       log("data from get profile:${ response.body}"); 
- 
-     if(response.statusCode==200){
-      final jsonDecoded=jsonDecode(response.body);
-       
-         return ProfileModel.fromJson(jsonDecoded['result']);
-     }
- 
+       if (response.statusCode==200) {
+         final jsonDecoded= jsonDecode(response.body);
+         final model= ProfileModel.fromJson(jsonDecoded['result']);
+         return model; 
+       }
+    
+  
     } catch (e) {
-      log(e.toString());
+      log(e.toString()); 
     }
    return null;
 
   }
 
+ ///////////////////////
+
+  Future<bool>  deleteStatus()async{
+       final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.profileStatus}") ; 
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+  
+   final body={
+    "Status":" ",
+    "Duration":1
+   };
+
+    try {
+      final response=await http.post( 
+        url, 
+        headers: {
+          "AccessToken":accessToken,  
+          "RefreshToken":refreshToken
+        },
+           
+        body: jsonEncode(body)     
+        );  
+      log("data from get profile Status delet:${ response.body}"); 
+ 
+       if (response.statusCode==200) {
+         return true;
+       }
+ 
+    } catch (e) {
+      log(e.toString());
+    }
+     return false;
+
+    }
+
+
+  ////////////////////////
+    
+
+   Future<int> uploadCoverPic(String imgPath)async{
+     
+   final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadCoverphoto}") ; 
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+
+    final header={
+          "Content-Type":"multipart/form-data", 
+          "AccessToken":accessToken,
+          "RefreshToken":refreshToken
+        };
+
+     try {
+       var request = http.MultipartRequest('POST', url);
+          request.headers.addAll(header);
+          request.files.add( 
+            await http.MultipartFile.fromPath( 
+            'CoverPhoto',
+            imgPath 
+          ), 
+          );
+          final response = await request.send(); 
+
+          
+
+          log("cover pic🍿${response.statusCode}");  
+          return response.statusCode;
+
+
+     } catch (e) {
+        log(e.toString()); 
+     }
+     return -1;
+
+   }
+
+
+   /////////////////
+
+
+    Future<int> uploadProfilePic(String imgPath)async{
+     
+   final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadProfilephoto}") ; 
+   final accessToken = await SecureStorage().readSecureData('AccessToken');  
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+
+    final header={
+          "Content-Type":"multipart/form-data", 
+          "AccessToken":accessToken,
+          "RefreshToken":refreshToken
+        };
+
+     try {
+       var request = http.MultipartRequest('PATCH', url);  
+          request.headers.addAll(header); 
+          request.files.add( 
+            await http.MultipartFile.fromPath( 
+            'ProfilePhoto',
+            imgPath 
+          ), 
+          );
+          final response = await request.send(); 
+
+          
+
+          log("profile pic💕${response.statusCode}");  
+          return response.statusCode;
+
+
+     } catch (e) {
+        log(e.toString());  
+     }
+     return -1;
+
+   }
+
+
+   ///////////////////////
+
+  
+   Future<void> addDiscription(String about)async{
+   final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadDiscription}");
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final body ={
+     "Description":about 
+   };
+
+    try {    
+      final response=await http.post( 
+        url,   
+        headers: { 
+          "Content-Type": "application/json",
+          "AccessToken":accessToken,  
+          "RefreshToken":refreshToken 
+        }, 
+        body: jsonEncode(body)
+        );  
+
+     log("discription👌:${ response.body}"); 
+   
+    } catch (e) { 
+      log(e.toString()); 
+    }
+
+  }
+
+  Future<void> deleteDiscription()async{
+   final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadDiscription}");
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final body ={
+     "Description":'' 
+   };
+
+    try {    
+      final response=await http.post( 
+        url,   
+        headers: { 
+          "Content-Type": "application/json",
+          "AccessToken":accessToken,  
+          "RefreshToken":refreshToken 
+        }, 
+        body: jsonEncode(body)
+        );  
+
+     log("discription👌:${ response.body}"); 
+   
+    } catch (e) { 
+      log(e.toString()); 
+    }
+
+  }
+    
+
+
+     Future<bool> addStatus(String text)async{
+   final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadStatus}");
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final body ={
+     "Status":text ,
+     "Duration":6
+   };
+ 
+    try {    
+      final response=await http.post( 
+        url,   
+        headers: { 
+          "Content-Type": "application/json",
+          "AccessToken":accessToken,  
+          "RefreshToken":refreshToken 
+        }, 
+        body: jsonEncode(body)
+        );  
+
+     log("Status😶‍🌫️:${ response.body}"); 
+
+     if (response.statusCode==200) {
+       return true;
+     }  
+   
+    } catch (e) { 
+      log(e.toString()); 
+    }
+    return false;
+
+  }
+
+ 
 }

@@ -13,6 +13,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
     
      on<SignupEvent>(signupEvent);
+     on<MailverifyEvent>(mailverifyEvent);
 
   }
 
@@ -22,7 +23,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     
       emit(SignUpLoadingState());
       
-      Response? response =await AuthService().createUser(event.user);
+      Response? response =await AuthService().createUser(event.user!);
        final jsonResponse=jsonDecode(response!.body);
       if(response.statusCode==201){
         
@@ -38,6 +39,17 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
 
+  FutureOr<void> mailverifyEvent(MailverifyEvent event, Emitter<SignupState> emit) async{
+
+    bool res= await AuthService().confirmMail(event.token);
+
+    if (res) {
+      emit(MailVerifySuccessState());
+    }else{
+      emit(MailVerifyErrorsState());
+    }
+
+  }
 
 
 }

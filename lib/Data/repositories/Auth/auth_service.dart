@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:crowd_verse/utils/core/endpoints.dart';
 import 'package:crowd_verse/data/sharedprefrense/shared_prefrense.dart';
-import 'package:crowd_verse/data/models/auth/after_exicution.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -17,7 +16,6 @@ class AuthService {
 
 
   Future <Response?> createUser(UserModel user) async {
-    //  AfterExicution result=AfterExicution(statusCode:0);
     final url = Uri.parse('${EndPoint.baseUrl}${EndPoint.signUp}');
 
     final body = {
@@ -40,20 +38,7 @@ class AuthService {
 
  
      return response;
-      //  if(response.statusCode==201){
-      // final jsonResponse=jsonDecode(response.body);
-       
-      //  result.confirmToken = jsonResponse['result']['TemperveryToken'];
-      //  result.statusCode = response.statusCode;
-      //  return result;
-            
-      //  }else{
-      //   result.jsonBody=response.body;
-      //   return result;
-      //  }
-     
-       
-
+  
     } catch (error) {
       log('Error occurred: $error');
     }
@@ -127,8 +112,7 @@ class AuthService {
 
 /////////////////
  
- Future<AfterExicution> resetPasswordConfirmMail(String mail)async{
-   AfterExicution result=AfterExicution(statusCode:0);
+ Future<Response?> resetPasswordConfirmMail(String mail)async{
       final url = Uri.parse('${EndPoint.baseUrl}${EndPoint.resetPassConfirmMail}');
       final body={
         'Email':mail
@@ -143,31 +127,34 @@ class AuthService {
         );
        log(response.body);
 
-        if(response.statusCode==201){
-          final json=jsonDecode(response.body);
-             result.forgotPassToken=json['result']['Token'];
-             result.statusCode=response.statusCode;
-             return result;
-        }
-     
        
+        if (response.statusCode==201) {
+            final json=  jsonDecode(response.body);
+            String forgotPassToken=json['result']['Token'];
+            SecureStorage().writeSecureData('forgotPassToken', forgotPassToken);
 
+        }
+        return response;
+ 
       } catch (e) {
         log(e.toString());
       }
-      return result;
+      return null;
       
  }
 
+
  ////////////////////
 
- Future<bool> resetPassword(String password ,String otp,String token)async{
+
+ Future<bool> resetPassword(String password ,String otp)async{
    
    final url = Uri.parse('${EndPoint.baseUrl}${EndPoint.forgotPass}');
    final body={
     "Password":password,
     "Otp" :otp
    };
+   String token=await SecureStorage().readSecureData('forgotPassToken');
    try {
       final response=await http.post(
         url,

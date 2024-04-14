@@ -12,10 +12,13 @@ final class SignUpSuccessState extends SignupState{
   SignUpSuccessState({required this.confirmToken});
 }
 
-
-
 final class SignUpErroeState extends SignupState{
   final String error;
 
   SignUpErroeState({required this.error});
 }
+//////////////////////
+
+final class MailVerifySuccessState extends SignupState {}
+
+final class MailVerifyErrorsState extends SignupState {}

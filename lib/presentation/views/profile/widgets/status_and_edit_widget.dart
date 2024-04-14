@@ -7,7 +7,7 @@ class StatusAndEditWidget extends StatelessWidget {
   const StatusAndEditWidget({
     super.key,
     required this.screenSize, 
-    required this.icon,
+    required this.icon, 
      required this.text,
   });
   final IconData icon;
@@ -28,7 +28,7 @@ class StatusAndEditWidget extends StatelessWidget {
         child: Row(
           children: [
             Icon(icon,color: kClrWhite,), 
-            SizedBox(width: kHeight10,),
+            SizedBox(width: kHeight10,), 
             Text(text,style:const TextStyle(color: kClrWhite,fontSize: 15,fontWeight: FontWeight.bold),)
           ],
         ),

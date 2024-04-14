@@ -1,3 +1,5 @@
+import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
+import 'package:crowd_verse/presentation/widgets/google_auth.wdget.dart';
 import 'package:crowd_verse/utils/core/functions.dart';
 import 'package:crowd_verse/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/screen_signup.dart';
@@ -5,11 +7,11 @@ import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
-import '../../../../data/repositories/Auth/auth_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../utils/core/color.dart';
 import '../../../../utils/validations/validation.dart';
 import '../signup/widgets/text_form.dart';
-import 'widgets/screen_forget_pass.dart';
+import 'widgets/forget_pass.dart';
 
 class ScreenLogIn extends StatelessWidget {
   const ScreenLogIn({super.key});
@@ -58,7 +60,8 @@ class ScreenLogIn extends StatelessWidget {
                   
                     const Text('Password',style:TextStyle(color:kClrGrey),),   
                        BuildTextFormField( 
-                      hintTxt:'Enter Password', 
+                       obscureTxt: true, 
+                      hintTxt:'Enter Password',  
                       prfixIcon: Icons.lock_outlined, 
                       controller:passwordController ,
                       validator: (value) {
@@ -70,22 +73,32 @@ class ScreenLogIn extends StatelessWidget {
             
                        SizedBox(height: kHeight60,),   
             
-                     LoginSignUpButtonWidget( 
+
+                     BlocConsumer<LoginBloc, LoginState>( 
+                      listener: (context, state) {
+                        if (state is LoginErrorState) {
+                          kSnakBar(context,"Email & Password don't match",kClrLiteRed);
+                        }else if(state is LoginSuccessState){
+                          kNavigationPushRemoveUntil(context,const ScreenNavBar());
+                        }
+                      },
+                      builder: (context, state) {                     
+                        return  LoginSignUpButtonWidget( 
                       text: 'Login',  
-                      onPressed: ()async{
-                      if (formKey.currentState!.validate()) { 
-                      final isUser = await AuthService().userLogin(eMailController.text, passwordController.text);
-                        if( isUser){
-                          kNavigationPushReplacement(context, ScreenNavBar());
-                           kSnakBar(context, 'Login Sucessfull',kClrLiteGreen);
-                        }else{
-                          kSnakBar(context," Email & Password don't match",kClrLiteRed);
+                      onPressed: (){
+                        if (formKey.currentState!.validate()) {
+                         context.read<LoginBloc>().add(LoginAction(password: passwordController.text, email: eMailController.text));
                         }
                       }
-                      } 
-                      ),
+                      );
+                      },
+                     ),
              
-                      SizedBox(height: kHeight30,),
+                      SizedBox(height: kHeight20 ,),
+
+                     const GoogleAuthWidget(),
+
+                       SizedBox(height: kHeight20 ,),
             
                   Align(child: GestureDetector(  
                     onTap: () {

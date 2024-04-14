@@ -1,13 +1,14 @@
+import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
+import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/utils/core/color.dart';
 import 'package:crowd_verse/utils/core/functions.dart';
 import 'package:crowd_verse/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
-import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../../data/repositories/Auth/auth_service.dart';
 
 class EmailverifyWidget extends StatelessWidget {
   const EmailverifyWidget({super.key, required this.token});
@@ -28,16 +29,25 @@ class EmailverifyWidget extends StatelessWidget {
               title: 'Check Your Email', 
                text: "Please check your inbox for a confirmation message to proceed."
                )),
-               LoginSignUpButtonWidget(
-                onPressed: ()async{
-               final res=  await AuthService().confirmMail(token); 
-                   if(res){
-                    kNavigationPushReplacement(context,ScreenNavBar());
-                   }else{
-                     kSnakBar(context, 'Confirm Mail to Proceed', kClrLiteRed);
-                   }
-                }, text: "Next"
-                ),
+              
+              BlocConsumer<SignupBloc, SignupState>(
+                listener: (context, state) {
+                  if (state is MailVerifySuccessState) {
+                    kNavigationPushReplacement(context,const ScreenNavBar());
+                  }else if(state is MailVerifyErrorsState){
+                   kSnakBar(context, 'Confirm Mail to Proceed', kClrLiteRed);
+                  }
+
+                },
+                builder: (context, state) {
+                  return LoginSignUpButtonWidget(
+                    text: 'verified',
+                    onPressed: () {
+                      context.read<SignupBloc>().add(MailverifyEvent(token: token));
+                    },
+                    );
+                },
+              ),
                SizedBox(height:kHeight50)  
           ],
         ),

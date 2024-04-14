@@ -3,25 +3,33 @@ class ProfileModel{
   final String name;
   final String eMail;
   final String joinDate;
-  // final String coverPic;
+    String? coverPic;
+    String? profilepic;
+    String? aboutTxt;
+    String? statusTxt;
  
-  ProfileModel( {
-    // required this.coverPic, 
+  ProfileModel({
+    this.coverPic, 
+    this.profilepic,
+    this.aboutTxt,
+    this.statusTxt,
     required this.userName,
     required this.name,
     required this.eMail,
-    required this.joinDate
-
+    required this.joinDate,
     });
 
 
     factory ProfileModel.fromJson( Map<String,dynamic>json){
-      return ProfileModel(
+      return ProfileModel( 
         userName: json['UserName'], 
         name: json['Name'],
         eMail:json['Email'],
         joinDate:json['UserSince'],
-        // coverPic: json['CoverPhoto']
+        coverPic: json['CoverPhoto'],
+        profilepic: json['ProfilePhoto'],
+        aboutTxt: json['Description'],
+        statusTxt: json['Status']
         );
     }
 }

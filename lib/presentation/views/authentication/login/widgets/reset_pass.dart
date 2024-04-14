@@ -1,8 +1,9 @@
+import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
+import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/utils/core/functions.dart';
 import 'package:crowd_verse/utils/core/height_width.dart';
-import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:flutter/material.dart';
-import '../../../../../data/repositories/Auth/auth_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../utils/core/color.dart';
 import '../../../../../utils/validations/validation.dart';
 import '../../../../widgets/login_signuu_heding.dart';
@@ -12,8 +13,9 @@ import 'password_sucess_widget.dart';
 
 
 class ScreenResetPassword extends StatelessWidget {
-   ScreenResetPassword({super.key, required this.otp, required this.token});
-   final String token;
+  ScreenResetPassword({
+    super.key, required this.otp,
+     });
   final String otp;
    final  passwordontroller=TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -44,19 +46,30 @@ class ScreenResetPassword extends StatelessWidget {
                       ),
                           
                         SizedBox(height: kHeight60,),
-          
-                      LoginSignUpButtonWidget(onPressed: ()async{
-                        if(_formKey.currentState!.validate()){
-                        final result= await AuthService().resetPassword(passwordontroller.text, otp, token);
-                         if(result){
-                          kNavigationPush(context,const PasswordSucessWidget());
-                         }else{
-                          kSnakBar(context, 'Somthing rong in OTP verification try again later', kClrLiteRed);
+
+                      BlocConsumer<LoginBloc, LoginState>(
+                        listener: (context, state) {
+                         if (state is ResetPasswordSuccessState) {
+                           kNavigationPushReplacement(context,const PasswordSucessWidget());
+                           
                          }
-                        }  
-                      
-                      },
-                       text: 'Continue') 
+                         else if(state is ResetPasswordErrorState){
+                          kSnakBar(context, state.error, kClrLiteRed);
+                         }
+                        },
+                        builder: (context, state) {
+                          return LoginSignUpButtonWidget(
+                            text: 'Continue',
+                             onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                 context.read<LoginBloc>().add(ResetPassEvent(otp: otp, newPassword: passwordontroller.text));
+                              }
+                             },
+                            );
+                        },
+                      )
+
+
             ],
           ),
         ),
