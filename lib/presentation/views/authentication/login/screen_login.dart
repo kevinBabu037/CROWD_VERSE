@@ -1,15 +1,15 @@
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/google_auth.wdget.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/screen_signup.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../utils/core/color.dart';
-import '../../../../utils/validations/validation.dart';
+import '../../../utils/core/color.dart';
+import '../../../utils/validations/validation.dart';
 import '../signup/widgets/text_form.dart';
 import 'widgets/forget_pass.dart';
 
@@ -49,14 +49,14 @@ class ScreenLogIn extends StatelessWidget {
                       },
                       ),
              
-                        SizedBox(height: kHeight10,),
+                        kHeight10,
                       Align(alignment: Alignment.centerRight,  
                      child:  GestureDetector(
                       onTap: () {
                         kNavigationPush(context, ScreenForgotPassword());
                       },
                       child:const Text('Forgot Password?'))),
-                     SizedBox(height: kHeight20,),
+                     kHeight20,
                   
                     const Text('Password',style:TextStyle(color:kClrGrey),),   
                        BuildTextFormField( 
@@ -71,7 +71,7 @@ class ScreenLogIn extends StatelessWidget {
                      
                   //////////////////
             
-                       SizedBox(height: kHeight60,),   
+                        kHeight60, 
             
 
                      BlocConsumer<LoginBloc, LoginState>( 
@@ -94,11 +94,11 @@ class ScreenLogIn extends StatelessWidget {
                       },
                      ),
              
-                      SizedBox(height: kHeight20 ,),
+                     kHeight20,
 
                      const GoogleAuthWidget(),
 
-                       SizedBox(height: kHeight20 ,),
+                      kHeight20,
             
                   Align(child: GestureDetector(  
                     onTap: () {

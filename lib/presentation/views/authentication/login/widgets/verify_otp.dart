@@ -1,7 +1,7 @@
 
-import 'package:crowd_verse/utils/core/color.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class ScreenVerifyOtp extends StatelessWidget {
                     
                   ],
                 )),
-                SizedBox(height: kHeight60,), 
+                kHeight60,
                 
                 LoginSignUpButtonWidget(onPressed: (){ 
                  String otp="${cntrlr1.text}${cntrlr2.text}${cntrlr3.text}${cntrlr4.text}";
@@ -70,7 +70,7 @@ class ScreenVerifyOtp extends StatelessWidget {
                  text: 'Next' 
                  ),
           
-                 SizedBox(height: kHeight50,),
+                kHeight50
           
               ////////////////
                 

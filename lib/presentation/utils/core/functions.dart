@@ -1,6 +1,7 @@
 
-import 'package:crowd_verse/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 kNavigationPush(BuildContext context,Widget screen){
   Navigator.push(context, MaterialPageRoute(builder: (context) =>screen,));
@@ -44,3 +45,44 @@ kSnakBarToDisplayError(BuildContext context,String text){
       )
   );
 }
+
+
+kShowDialog(
+  {
+  required BuildContext context,
+  required String title,
+  required String contentTxt,
+  required String actionBtn1Txt,
+  required String actionBtn2Txt,
+  required void Function()? onPressed
+  }
+){
+    showDialog(
+            context: context,
+             builder: (context) {
+               return AlertDialog(
+                 title: Text(title),
+                 content: Text(contentTxt),
+                 actions: [
+                  TextButton(onPressed: (){
+                   Navigator.pop(context);
+                  },
+                   child: Text(actionBtn1Txt)),
+                   TextButton(
+                    onPressed:onPressed,
+                   child: Text(actionBtn2Txt)),
+
+                 ],
+               );
+             },
+             );
+}
+
+
+
+String kDateTimeConverter(String date){
+  DateTime joinDate = DateTime.parse(date.split(' ')[0]);
+  String formattedDate = DateFormat.yMMMMd().format(joinDate);
+   return formattedDate;
+}
+

@@ -1,11 +1,11 @@
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../utils/core/color.dart';
-import '../../../../../utils/validations/validation.dart';
+import '../../../../utils/core/color.dart';
+import '../../../../utils/validations/validation.dart';
 import '../../../../widgets/login_signuu_heding.dart';
 import '../../signup/widgets/text_form.dart';
 import 'password_sucess_widget.dart';
@@ -45,7 +45,7 @@ class ScreenResetPassword extends StatelessWidget {
                       prfixIcon: Icons.lock_outlined,  
                       ),
                           
-                        SizedBox(height: kHeight60,),
+                        kHeight60,
 
                       BlocConsumer<LoginBloc, LoginState>(
                         listener: (context, state) {

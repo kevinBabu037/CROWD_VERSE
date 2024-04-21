@@ -2,12 +2,12 @@ import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/lo
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
+import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/views/splash/screen_splash.dart';
 import 'package:crowd_verse/data/sharedprefrense/shared_prefrense.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'presentation/views/profile/profile_bloc/profile_details_bloc.dart';
 
  
@@ -28,25 +28,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      
-    return
-     MultiBlocProvider(  
+    return 
+     MultiBlocProvider(    
       providers: [
-       BlocProvider(create: (context) => NavIndex(),),
-       BlocProvider(create: (context) => ProfileDetailsBloc(),),
+       BlocProvider(create: (context) => NavIndex(),), 
+       BlocProvider(create: (context) => ProfileDetailsBloc(),), 
        BlocProvider(create: (context) => SignupBloc(),), 
        BlocProvider(create: (context) => LoginBloc(),),
+       BlocProvider(create: (context) => FriendsBloc(),),  
       ],
       child: 
       MaterialApp(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false, 
         theme: ThemeData( 
-          textTheme: GoogleFonts.workSansTextTheme().copyWith(  
+          textTheme: GoogleFonts.workSansTextTheme().copyWith(     
             displayLarge: GoogleFonts.workSans(),),
           fontFamily: GoogleFonts.roboto().fontFamily,
         ), 
         home:isLogin?const ScreenNavBar() :const ScreenSplash() 
       ));
+      
      
-    
   }
 }

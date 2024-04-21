@@ -1,5 +1,5 @@
-import 'package:crowd_verse/utils/core/color.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/views/authentication/login/screen_login.dart';
 import 'package:flutter/material.dart';
 

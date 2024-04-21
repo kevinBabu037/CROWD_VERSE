@@ -1,9 +1,7 @@
-import 'package:crowd_verse/utils/core/images.dart';
+import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-import '../../../../utils/core/color.dart';
-import '../../../../utils/core/height_width.dart';
+import '../../../utils/core/color.dart';
 
 class FriendsWidget extends StatelessWidget {
   const FriendsWidget({
@@ -25,17 +23,17 @@ class FriendsWidget extends StatelessWidget {
           ),
           child: Stack( 
             children: [
-              Row(
-                children: [ 
-                 const Text('Your Friends',style: TextStyle(fontSize: 20),),
-                 const Spacer(),
-                 const CircleAvatar(
+             const Row(
+                children: [  
+                  Text('Your Friends',style: TextStyle(fontSize: 20),),
+                  Spacer(),
+                  CircleAvatar(
                   backgroundImage: NetworkImage('https://i.pinimg.com/564x/66/fd/3f/66fd3fb8b00a53560dcb7d888e206006.jpg'),
                  radius: 10.2,
                   ),
                   
-                  SizedBox(width: kHeight40,),
-                  const Icon(Icons.arrow_forward_ios,size: 18,) 
+                  SizedBox(width: 40,),
+                   Icon(Icons.arrow_forward_ios,size: 18,) 
                 ],
               ),
                Positioned(

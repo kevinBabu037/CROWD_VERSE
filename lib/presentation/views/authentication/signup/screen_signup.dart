@@ -1,13 +1,13 @@
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/widgets/email_verify.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/widgets/google_auth.wdget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/auth/user.dart';
-import '../../../../utils/core/color.dart';
-import '../../../../utils/validations/validation.dart';
+import '../../../utils/core/color.dart';
+import '../../../utils/validations/validation.dart';
 import '../../../widgets/login_signup_button.dart';
 import '../../../widgets/login_signuu_heding.dart';
 import 'widgets/alredy_have_acc_widget.dart';
@@ -52,7 +52,7 @@ class ScreenSignup extends StatelessWidget {
                   },
                   ),
                 
-                 SizedBox(height: kHeight20,), 
+                 kHeight20, 
                   
                   const Text('Name',style:TextStyle(color:kClrGrey),),  
                    BuildTextFormField( 
@@ -64,7 +64,7 @@ class ScreenSignup extends StatelessWidget {
                   },
                   ),
                 
-                  SizedBox(height: kHeight20,),
+                  kHeight20,
                   
                   const Text('Email',style:TextStyle(color:kClrGrey),),   
                    BuildTextFormField( 
@@ -77,7 +77,7 @@ class ScreenSignup extends StatelessWidget {
                   prfixIcon: Icons.email_outlined, 
                   ),
                 
-                  SizedBox(height: kHeight20,),
+                  kHeight20,
                   
                   const Text('Password',style:TextStyle(color:kClrGrey),),   
                    BuildTextFormField( 
@@ -89,7 +89,7 @@ class ScreenSignup extends StatelessWidget {
                   }, 
                   ),
                 
-                  SizedBox(height: kHeight50,) ,
+                 kHeight50,
                 
                ////section3   
          
@@ -131,11 +131,11 @@ class ScreenSignup extends StatelessWidget {
  
           
                 
-               SizedBox(height: kHeight20,),  
+               kHeight20,  
  
                 const GoogleAuthWidget(), 
  
-                 SizedBox(height: kHeight20,),
+                 kHeight20,
                     
                 const AlredyHaveAccWidget()
               

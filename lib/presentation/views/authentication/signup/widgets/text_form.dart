@@ -1,4 +1,4 @@
-import 'package:crowd_verse/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

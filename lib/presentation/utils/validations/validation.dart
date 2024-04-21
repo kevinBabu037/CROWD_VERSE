@@ -1,3 +1,4 @@
+
 class Validator {
 
   static String? validateEmail(String? value) {
@@ -65,7 +66,33 @@ class Validator {
        }
        return null;
     }
-
+ 
 
 
 }
+      
+///////////////
+
+  
+String calculateTimeDifference(String dateTimeString) {
+  dateTimeString = dateTimeString.replaceAll(RegExp(r'\s\+\d{4}\s\w{3}$'), '');
+
+  DateTime dateTime = DateTime.parse(dateTimeString);
+
+  Duration difference = DateTime.now().difference(dateTime);
+
+  if (difference.inSeconds < 60) {
+    return '${difference.inSeconds} s';
+  } else if (difference.inMinutes < 60) {
+    return '${difference.inMinutes} m ago';
+  } else if (difference.inHours < 24) {
+    return '${difference.inHours} h ago'; 
+  } else if (difference.inDays < 7) {
+    return '${difference.inDays} d ago';
+  } else {
+    int weeks = difference.inDays ~/ 7;
+    return '$weeks w ago';
+  }
+}
+
+

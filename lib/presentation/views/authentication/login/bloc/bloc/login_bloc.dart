@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:crowd_verse/data/repositories/Auth/auth_service.dart';
+import 'package:crowd_verse/data/repositories/auth/auth_service.dart';
 import 'package:http/http.dart';
 
 part 'login_event.dart';

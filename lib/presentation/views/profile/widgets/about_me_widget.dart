@@ -1,10 +1,10 @@
 
-import 'package:crowd_verse/utils/core/coverpic_shimmer.dart';
+import 'package:crowd_verse/presentation/utils/core/shimmer/coverpic_shimmer.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import '../../../../utils/core/color.dart';
-import '../../../../utils/core/height_width.dart';
+import '../../../utils/core/color.dart';
+import '../../../utils/core/height_width.dart';
 import '../profile_bloc/profile_details_bloc.dart';
 
 class AboutMeWidget extends StatelessWidget {
@@ -42,15 +42,15 @@ Widget build(BuildContext context) {
                     state.profile.aboutTxt!,
                     style: const TextStyle(fontSize: 18),
                   ),
-                ],
+                ], 
               ); 
-            }
+            } 
             return const SizedBox(); 
           },
         ),
-        SizedBox(height: kHeight10),
+        kHeight10,
         const Text(
-          'Croud Verse Member Since',
+          'Croud Verse Member Since', 
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         BlocBuilder<ProfileDetailsBloc, ProfileDetailsState>(
@@ -59,10 +59,9 @@ Widget build(BuildContext context) {
               return const ShimmerCoverPicLoading(height: 120);
             }
             if (state is ProfileSuccessState) {
-              DateTime joinDate = DateTime.parse(state.profile.joinDate.split(' ')[0]);
-              String formattedDate = DateFormat.yMMMMd().format(joinDate);
+             final date = kDateTimeConverter(state.profile.joinDate!); 
               return Text(
-                formattedDate,
+                date, 
                 style: const TextStyle(fontSize: 18),
               );
             }

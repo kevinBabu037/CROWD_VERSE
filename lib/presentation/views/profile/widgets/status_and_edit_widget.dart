@@ -1,6 +1,5 @@
 
-import 'package:crowd_verse/utils/core/color.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:flutter/material.dart';
 
 class StatusAndEditWidget extends StatelessWidget {
@@ -28,7 +27,7 @@ class StatusAndEditWidget extends StatelessWidget {
         child: Row(
           children: [
             Icon(icon,color: kClrWhite,), 
-            SizedBox(width: kHeight10,), 
+           const SizedBox(width: 10,), 
             Text(text,style:const TextStyle(color: kClrWhite,fontSize: 15,fontWeight: FontWeight.bold),)
           ],
         ),

@@ -1,31 +1,33 @@
 import 'package:crowd_verse/data/repositories/profile/profile_serveces.dart';
 import 'package:crowd_verse/presentation/views/profile/profile_bloc/profile_details_bloc.dart';
-import 'package:crowd_verse/utils/core/coverpic_shimmer.dart';
+import 'package:crowd_verse/presentation/views/profile/widgets/profile_cover_pic_delete_widget.dart';
+import 'package:crowd_verse/presentation/utils/core/shimmer/coverpic_shimmer.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
-import 'package:crowd_verse/utils/core/color.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
-import 'package:crowd_verse/utils/validations/validation.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/images.dart';
+import 'package:crowd_verse/presentation/utils/core/style.dart';
+import 'package:crowd_verse/presentation/utils/validations/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class EditProfileWidget extends StatelessWidget {
    EditProfileWidget({super. key});
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); 
   @override
   Widget build(BuildContext context) {
-       context.read<ProfileDetailsBloc>().add(DisplayProfileEvent());
        final TextEditingController aboutController=TextEditingController( );   
 
-    final screenSize = MediaQuery.of(context).size.height;
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,  
-        title: const Text('Profile'),
+        title: const Text('Profile',style:kAppBarHedingStyke),
       ),
       body: SingleChildScrollView(
-        child: Stack(
+        child: Stack( 
           children: [
             Column(
               children: [
@@ -35,32 +37,35 @@ class EditProfileWidget extends StatelessWidget {
                       kSnakBar(context, state.error, kClrLiteRed);
                     }
                   }, 
-                  builder: (context, state) {
+                  builder: (context, state) { 
                     if (state is EditProfileLoadingState) {
-                      return const ShimmerCoverPicLoading(height: 200);
+                      return const ShimmerCoverPicLoading(height: 500);
                     } else if (state is ProfileSuccessState) {
                       aboutController.text = state.profile.aboutTxt ?? '';
                       return SizedBox(
                         width: double.infinity,
-                        height: screenSize * 0.2,
-                        child: state.profile.coverPic != null
-                            ? Image.network(
+                        height: screenSize.height * 0.2,
+                        child: FadeInImage( 
+                          placeholder: AssetImage(kDefaultcoverPic),
+                           image: state.profile.coverPic != null
+                            ? NetworkImage(
                                 state.profile.coverPic!,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                'assets/defalt_cover_pic1.png',
-                                fit: BoxFit.cover,
-                              ),
+                              ) 
+                            :  AssetImage(kDefaultcoverPic)as ImageProvider<Object>,
+                            fit: BoxFit.cover,
+                           )
                       );
                     }
-                    if (state is EditProfileErrorState) { 
-                      return Container(decoration: BoxDecoration(border: Border.all(width: 0.4)), height: 200,width:double.infinity,child:  Center(child: Text(state.error)),);     
-                    }
-                    return const SizedBox();
+                   
+                    return const ShimmerCoverPicLoading(height: 160);
                   },  
-                ), 
-                const SizedBox(height: 70),
+                ),  
+                 const SizedBox(height: 65), 
+
+                 ProFileCoverDeletButtonWidget(screenSize:screenSize ),
+ 
+                 kHeight30,
+ 
                 Form(   
                   key:_formKey ,
                   child: Padding(  
@@ -75,16 +80,16 @@ class EditProfileWidget extends StatelessWidget {
                         suffixIcon:IconButton(
                           onPressed: (){
                             aboutController.clear();
-                            ProfileServices().deleteDiscription();
+                            ProfileServices().deleteDiscription(); 
                           },
-                         icon:const Icon(Icons.delete)) ,
+                         icon:const Icon(Icons.delete,color:kClrGreyDark,)) ,
                         hintText: 'About',
                         border:const OutlineInputBorder(),
                       ),
                     ),
                   ),
                 ),  
-                SizedBox(height: kHeight40),
+                kHeight40,
                 LoginSignUpButtonWidget( 
                   text: 'Save', 
                   onPressed: () { 
@@ -98,14 +103,14 @@ class EditProfileWidget extends StatelessWidget {
             ),
             Positioned( 
               left: 30,
-              top: screenSize * 0.1 + 28,
+              top: screenSize.height * 0.1 + 28,
               child: CircleAvatar(
                 backgroundColor: kClrWhite,
                 radius: 50,
                 child: BlocConsumer<ProfileDetailsBloc, ProfileDetailsState>( 
                   listener: (context, state) {
                      if (state is EditProfilePicErrorState) { 
-                      kSnakBar(context, state.error, kClrLiteRed);
+                      kSnakBar(context, state.error, kClrLiteRed); 
                     }
                   },
                   builder: (context, state) {
@@ -118,7 +123,7 @@ class EditProfileWidget extends StatelessWidget {
                         radius: 45,
                         backgroundImage:state.profile.profilepic!=null?
                           NetworkImage(state.profile.profilepic!):
-                         const AssetImage('assets/default_profile_pic.png') as ImageProvider<Object>,
+                          AssetImage(kDefaultProfilePic) as ImageProvider<Object>,
                         child: Align(
                           alignment: Alignment.topRight,
                           child: GestureDetector(
@@ -169,5 +174,6 @@ class EditProfileWidget extends StatelessWidget {
     );
   }
 }
+
 
 

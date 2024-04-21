@@ -1,12 +1,13 @@
+import 'package:crowd_verse/presentation/utils/core/style.dart';
 import 'package:crowd_verse/presentation/views/profile/widgets/edit_status_widget.dart';
 import 'package:crowd_verse/presentation/views/profile/widgets/edit_profile.dart';
-import 'package:crowd_verse/utils/core/coverpic_shimmer.dart';
+import 'package:crowd_verse/presentation/utils/core/shimmer/coverpic_shimmer.dart';
 import 'package:crowd_verse/presentation/views/profile/widgets/status_and_edit_widget.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../utils/core/color.dart'; 
+import '../../../utils/core/color.dart'; 
 import '../profile_bloc/profile_details_bloc.dart';
 
 class ProfileDetailsWidget extends StatelessWidget {
@@ -39,29 +40,29 @@ class ProfileDetailsWidget extends StatelessWidget {
            return Column( mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
            crossAxisAlignment: CrossAxisAlignment.start,
             children: [  
-               Text(state.profile.name,style:const TextStyle(fontWeight: FontWeight.bold,fontSize: 27 ),),
-              Text(state.profile.userName,style:const TextStyle(fontSize: 18)), 
-              SizedBox(height: kHeight10,), 
+               Text(state.profile.name,style:kProfileNameStyle),
+              Text(state.profile.userName??'',style:const TextStyle(fontSize: 18)), 
+              kHeight10,
                state.profile.statusTxt!=null?  
                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,  
                 children: [ 
                  Text(state.profile.statusTxt??'',style:const TextStyle(fontSize: 18)),   
-                 IconButton(onPressed: ()async{ 
+                 IconButton(onPressed: (){ 
                   context.read<ProfileDetailsBloc>().add(DeleteStatusEvent());
                 },   
                  icon:const Icon(Icons.close,size: 17,)) 
                ],): const SizedBox(), 
-               SizedBox(height: kHeight10,),
+               kHeight10,
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,   
                 children: [
-                  
+                   
                 GestureDetector(
                   onTap: () {
                  editStatusDialog(context);
                   },
                   child: StatusAndEditWidget(screenSize: screenSize,icon: Icons.chat_bubble_outline,text: 'Edit Status',)
                   ),
-
+ 
                 GestureDetector(
                   onTap: () { 
                     kNavigationPush(context, EditProfileWidget()) ; 

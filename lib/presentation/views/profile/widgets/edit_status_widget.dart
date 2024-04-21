@@ -1,6 +1,6 @@
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/profile/profile_bloc/profile_details_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,14 +16,12 @@ editStatusDialog(BuildContext context) {
           if (state is ProfileSuccessState) {
        TextEditingController statusController = TextEditingController(text:state.profile.statusTxt);
             return AlertDialog(
-                    title:const Text('Add Status'),
+                    title:const Text('Edit Status'),
                     content: SingleChildScrollView(
                       child: Form(
-                        key: formKey, 
-                        child: Column(
-                         
+                        key: formKey,  
+                        child: Column( 
                           children: [  
-                             
                             const SizedBox(height: 16), 
                             TextFormField(
                               controller: statusController, 
@@ -40,7 +38,7 @@ editStatusDialog(BuildContext context) {
                               ),
                             ), 
                              
-                            SizedBox(height: kHeight40),   
+                            kHeight40,   
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [ 
                             LoginSignUpButtonWidget( 

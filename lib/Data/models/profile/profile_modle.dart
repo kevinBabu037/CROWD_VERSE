@@ -1,22 +1,22 @@
 class ProfileModel{
-   final String userName;
+   String? userName;
   final String name;
-  final String eMail;
-  final String joinDate;
-    String? coverPic;
-    String? profilepic;
-    String? aboutTxt;
-    String? statusTxt;
+   String? eMail;
+   String? joinDate;
+   String? coverPic;
+   String? profilepic;
+   String? aboutTxt;
+   String? statusTxt;
  
   ProfileModel({
     this.coverPic, 
     this.profilepic,
     this.aboutTxt,
     this.statusTxt,
-    required this.userName,
+     this.userName,
     required this.name,
-    required this.eMail,
-    required this.joinDate,
+     this.eMail,
+     this.joinDate,
     });
 
 

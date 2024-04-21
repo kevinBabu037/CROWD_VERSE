@@ -1,6 +1,5 @@
+import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/core/images.dart';
 import '../authentication/signup/screen_signup.dart';
 
 

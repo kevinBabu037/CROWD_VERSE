@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:crowd_verse/data/models/auth/user.dart';
-import 'package:crowd_verse/data/repositories/Auth/auth_service.dart';
+import 'package:crowd_verse/data/repositories/auth/auth_service.dart';
 import 'package:http/http.dart';
 
 part 'signup_event.dart';

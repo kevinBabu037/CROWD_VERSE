@@ -14,3 +14,9 @@ const Color kClrGrey=Colors.grey;
 const Color kClrWhite=Colors.white; 
 
 const Color kClrBlack=Colors.black; 
+
+const Color kClrGreyDark=Colors.black45;
+
+const Color kClrGreyLight =Color.fromARGB(255, 201, 199, 199);
+
+const Color kClrProfileScafold = Color.fromARGB(255, 248, 243, 243);

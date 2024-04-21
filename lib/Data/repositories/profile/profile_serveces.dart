@@ -1,7 +1,8 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'package:crowd_verse/utils/core/endpoints.dart';
+import 'package:crowd_verse/data/models/profile/public_profile_model.dart';
+import 'package:crowd_verse/presentation/utils/core/endpoints.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -217,21 +218,21 @@ class ProfileServices{
    final refreshToken = await SecureStorage().readSecureData('RefresToken');
    final body ={
      "Status":text ,
-     "Duration":6
+     "Duration":24
    };
- 
+  
     try {    
       final response=await http.post( 
         url,   
-        headers: { 
+        headers: {  
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
           "RefreshToken":refreshToken 
         }, 
-        body: jsonEncode(body)
+        body: jsonEncode(body) 
         );  
 
-     log("Status😶‍🌫️:${ response.body}"); 
+     log("Status😶‍🌫️:${ response.body}");  
 
      if (response.statusCode==200) {
        return true;
@@ -242,7 +243,72 @@ class ProfileServices{
     }
     return false;
 
+  } 
+
+    Future<bool>deleteProfilrandCoverPic(String type)async{
+        final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.deleteProfileAndCoverPic}");
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+    final body={
+    "Type" :type
+    };
+    
+
+     try {
+
+      final response = await http.delete(
+        url,
+        body: jsonEncode(body),
+        headers: { 
+          "Content-Type": "application/json",
+          "AccessToken":accessToken,  
+          "RefreshToken":refreshToken 
+        }, 
+        );
+        log("delete profile pic and cover ${response.body}");
+        if (response.statusCode==200) {
+          return true; 
+        }
+       
+     } catch (e) {
+       log(e.toString());
+     }
+     return false; 
+    
+    }
+
+
+    Future<PublicProfileModel?> publicUserAllDetails(String id)async{
+    final url =Uri.parse("${EndPoint.baseUrl}/profile/$id") ;
+   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
+   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+    try {
+      final response=await http.get( 
+        url, 
+        headers: {
+          "AccessToken":accessToken,
+          "RefreshToken":refreshToken
+        } 
+        );  
+
+      log("publicprofile🚒🚒🚒🚒🚒:${ response.body}"); 
+       if (response.statusCode==200) {
+         final jsonDecoded= jsonDecode(response.body);
+         final model= PublicProfileModel.fromJson(jsonDecoded['result']);
+         return model; 
+       }
+    
+  
+    } catch (e) {
+      log(e.toString()); 
+    }
+   return null;
+
   }
+
+
+  
+
 
  
 }

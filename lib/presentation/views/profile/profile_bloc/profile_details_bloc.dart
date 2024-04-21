@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:crowd_verse/data/models/profile/profile_modle.dart';
 import 'package:crowd_verse/data/repositories/profile/profile_serveces.dart';
+import 'package:crowd_verse/data/sharedprefrense/shared_prefrense.dart';
 import 'package:image_picker/image_picker.dart';
 
 part 'profile_details_event.dart';
@@ -15,6 +16,10 @@ class ProfileDetailsBloc extends Bloc<ProfileDetailsEvent, ProfileDetailsState> 
     on<EditProfilePicEvent>(editProfilePicEvent);
     on<AddAboutTextEvent>(addAboutTextEvent);
     on<AddStatusEvent>(addStatusEvent);
+    on<DeleteProfilePicAndCoverPicEvent>(deleteProfilePicAndCoverPicEvent);
+    on<LogoutEvent>(logoutEvent);
+
+    
   } 
 
   Future<void> disPlayProfile(ProfileDetailsEvent event, Emitter<ProfileDetailsState> emit) async {
@@ -120,5 +125,21 @@ class ProfileDetailsBloc extends Bloc<ProfileDetailsEvent, ProfileDetailsState> 
         emit(AddStatusSuccessState());
         emit(ProfileSuccessState(profile: model!)); 
        }
+  }
+
+  FutureOr<void> deleteProfilePicAndCoverPicEvent(DeleteProfilePicAndCoverPicEvent event, Emitter<ProfileDetailsState> emit)async {
+
+     bool res=  await ProfileServices().deleteProfilrandCoverPic(event.type);
+     
+    ProfileModel? model =await ProfileServices().getUserDetails();
+
+      if (res) {  
+        emit(ProfileSuccessState(profile: model!)); 
+      }
+
+  }
+
+  FutureOr<void> logoutEvent(LogoutEvent event, Emitter<ProfileDetailsState> emit)async{
+    await SharedPreferenses.deleteBool();
   }
 } 

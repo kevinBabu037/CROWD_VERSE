@@ -1,4 +1,4 @@
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class PasswordSucessWidget extends StatelessWidget {
             title: 'Password Changed!',
              text: 'Your password has been changed successfully.'
              ),
-             SizedBox(height: kHeight60,),
+             kHeight60,
              LoginSignUpButtonWidget( 
               onPressed: (){
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>const ScreenLogIn() ,), (route) => false);

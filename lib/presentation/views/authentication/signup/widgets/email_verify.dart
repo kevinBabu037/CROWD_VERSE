@@ -1,8 +1,8 @@
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
-import 'package:crowd_verse/utils/core/color.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class EmailverifyWidget extends StatelessWidget {
                     );
                 },
               ),
-               SizedBox(height:kHeight50)  
+               kHeight50 
           ],
         ),
       ) ,

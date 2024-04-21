@@ -27,3 +27,21 @@ class AddAboutTextEvent extends  ProfileDetailsEvent{
 
   AddStatusEvent({ required this.txt});
   }
+
+  /////////////////////
+  
+
+
+   class  DeleteProfilePicAndCoverPicEvent extends ProfileDetailsEvent{
+   final String type;
+
+  DeleteProfilePicAndCoverPicEvent({required this.type});
+   }
+
+
+
+////////////////
+
+class LogoutEvent extends ProfileDetailsEvent{}
+
+

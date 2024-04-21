@@ -1,12 +1,15 @@
 
+import 'package:crowd_verse/presentation/views/friends/friends_and_pending.dart';
 import 'package:crowd_verse/presentation/views/profile/profile_bloc/profile_details_bloc.dart';
-import 'package:crowd_verse/utils/core/coverpic_shimmer.dart';
-import 'package:crowd_verse/utils/core/color.dart';
-import 'package:crowd_verse/utils/core/functions.dart';
-import 'package:crowd_verse/utils/core/height_width.dart';
-import 'package:crowd_verse/presentation/views/profile/widgets/settings.dart';
+import 'package:crowd_verse/presentation/utils/core/shimmer/coverpic_shimmer.dart';
+import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/views/settings/settings.dart';
+import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'widgets/about_me_widget.dart';
 import 'widgets/firends_widget.dart';
 import 'widgets/profile_details_widget.dart';
@@ -17,9 +20,9 @@ class ScreenProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize=MediaQuery.of(context).size; 
-
+ 
     return  Scaffold(
-      backgroundColor:const Color.fromARGB(255, 248, 243, 243), 
+      backgroundColor:kClrProfileScafold, 
      body: SingleChildScrollView( 
        child: Stack( 
          children: [
@@ -30,17 +33,19 @@ class ScreenProfile extends StatelessWidget {
                 if (state is ProfileLoadingState) { 
                    return const ShimmerCoverPicLoading(height: 200,);  
                 }
-                if (state is ProfileSuccessState) {
-                  return SizedBox(
-                       width: double.infinity,   
-                        height:screenSize.height*0.2,
-                        child:FadeInImage(
-                         placeholder:const AssetImage('assets/defalt_cover_pic1.png'),
-                          image:state.profile.coverPic!=null?  NetworkImage(state.profile.profilepic!,):
-                          const AssetImage('assets/defalt_cover_pic1.png') as ImageProvider<Object>,
-                          fit: BoxFit.cover,  
-                           ) 
-                      );
+                if (state is ProfileSuccessState) { 
+                  return InstaImageViewer( 
+                    child: SizedBox( 
+                         width: double.infinity,   
+                          height:screenSize.height*0.2, 
+                          child:FadeInImage( 
+                           placeholder: AssetImage(kDefaultcoverPic),
+                            image:state.profile.coverPic!=null?  NetworkImage(state.profile.coverPic!,): 
+                             AssetImage(kDefaultcoverPic) as ImageProvider<Object>, 
+                            fit: BoxFit.cover,  
+                             ) 
+                        ),
+                  );
                 }
                 return const SizedBox();
                   
@@ -49,13 +54,18 @@ class ScreenProfile extends StatelessWidget {
        
              SizedBox(height:screenSize.height*0.1-25,),      
              ProfileDetailsWidget(screenSize: screenSize) ,
-             SizedBox(height: kHeight20,),
+             kHeight20, 
         
              AboutMeWidget(screenSize: screenSize),
-             SizedBox(height: kHeight20,), 
+             kHeight20, 
        
-             FriendsWidget(screenSize: screenSize)
-        
+             GestureDetector(
+              onTap: () {
+                kNavigationPush(context,const FriendsAndPending()); 
+              },
+              child: FriendsWidget(screenSize: screenSize)
+              )
+         
              ],   
 
            ),
@@ -69,22 +79,22 @@ class ScreenProfile extends StatelessWidget {
                      left: 30 ,  
                        top: screenSize.height*0.1+28,  
                        child: CircleAvatar(  
-                          backgroundColor:kClrWhite , 
+                          backgroundColor:kClrWhite ,  
                          radius: 50,
-                         child:CircleAvatar( 
-                          backgroundColor: kClrBlue,
-                          radius: 45, 
-                          child:Container(color: Colors.black45,)
-
-                        //    state.profile.profilepic !=null? NetworkImage(state.profile.profilepic!):
-                        //  const AssetImage('assets/default_profile_pic.png') as ImageProvider<Object>     
+                         child:InstaImageViewer( 
+                           child: CircleAvatar(  
+                            backgroundColor: kClrBlue,
+                            radius: 45, 
+                            backgroundImage: state.profile.profilepic !=null? NetworkImage(state.profile.profilepic!):
+                             AssetImage(kDefaultProfilePic) as ImageProvider<Object>     
+                           ),
                          ) , 
                        ),  
                      );  
                 }
-                return const SizedBox(); 
+                return const SizedBox(height: 300,width: double.infinity,); 
               }, 
-            ),  
+            ),   
               Positioned( 
                 top: 30 , 
                 right: 20,
