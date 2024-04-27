@@ -18,9 +18,6 @@ class SecureStorage{
     log("Data from Secure Storage: $value");
     return value;
    } 
-
-   deleteSecureData(String key)async{ 
-     await storage.delete(key: key);
-   }
+ 
 
 }

@@ -42,7 +42,7 @@ class ScreenSettings extends StatelessWidget {
               title: "Log Out",),
           ),
           SettingsItemsWidget(
-              icon: Icons.logout, 
+              icon: Icons.block, 
               title: "Block List",
               onTap: () {
                 kNavigationPush(context,const BlockList());

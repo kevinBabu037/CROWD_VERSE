@@ -2,7 +2,7 @@ import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
 import 'package:crowd_verse/presentation/utils/core/style.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';

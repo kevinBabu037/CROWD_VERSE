@@ -21,7 +21,7 @@ class FriendsAndPending extends StatelessWidget {
             actions: [
                   GestureDetector(
             onTap: () {
-              kNavigationPush(context,const AddFriends());  
+              kNavigationPush(context,const AddFriends());   
             }, 
             child:const Text('Add Friends  ',
             style: TextStyle(fontSize: 17 ,color:kClrBlue),
@@ -50,7 +50,7 @@ class FriendsAndPending extends StatelessWidget {
             FriendsList(),
             PendingRequests()  
             ]
-          )
+          ) 
       ),
     );
   }

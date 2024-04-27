@@ -1,64 +1,83 @@
-
+import 'package:crowd_verse/data/models/friends/friends_model.dart';
 import 'package:crowd_verse/data/models/profile/public_profile_model.dart';
+import 'package:crowd_verse/data/repositories/friends/friends_serveces.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/style.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PublicUserProfileDetailsWidget extends StatelessWidget {
+class PublicUserProfileDetailsWidget extends StatefulWidget {
   const PublicUserProfileDetailsWidget({
-    super.key,
-    required this.screenSize, required this.model,
+    super. key,
+    required this.screenSize,
+    required this.model,
   });
-   final PublicProfileModel model;
+
+  final PublicProfileModel model;
   final Size screenSize;
+
+  @override
+  State<PublicUserProfileDetailsWidget> createState() => _PublicUserProfileDetailsWidgetState();
+}
+
+class _PublicUserProfileDetailsWidgetState extends State<PublicUserProfileDetailsWidget> {
+  bool isFriend = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfFriend();
+  }
+
+  Future<void> checkIfFriend() async {
+    List<FriendsModel>? friends = await FriendsServeses().getAllFriends();
+    if (friends != null) {
+      setState(() {
+        isFriend = friends.any((friend) => friend.userId == widget.model.userId);
+      });
+    }
+  }
+
+  Future<void> handleFriendRequest() async {
+    bool success = await FriendsServeses().followFriend(widget.model.userId!);
+    if (success) {
+      kSnakBar(context, 'Friend request sent', kClrLiteGreen);
+    } else {
+      kSnakBar(context, 'Already requested check in pending', kClrLiteRed);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:const EdgeInsets.only(left: 10,top: 10,bottom: 10 ),   
-      width:screenSize.width-35,   
+      padding: const EdgeInsets.all(10),
+      width: widget.screenSize.width - 35,
       decoration: BoxDecoration(
         color: kClrWhite,
-        borderRadius: BorderRadius.circular(20)
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
-         mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
-        crossAxisAlignment: CrossAxisAlignment.start, 
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             Text(model.name,style:kProfileNameStyle),
-             SizedBox(
-              height: 25,
-               child: BlocConsumer<FriendsBloc, FriendsState>(
-                 listener: (context, state) { 
-                  if(state is CreateFriendErrorState){
-                    kSnakBar(context, state.errorMsg,kClrLiteRed);
-                  }
-                 },
-                 builder: (context, state) {              
-                   return LoginSignUpButtonWidget(
-                       fontSize: 12,
-                      text: ' Add Friend ', 
-                      onPressed: () {
-                       context.read<FriendsBloc>().add(CreateFriendEvent(id:model.userId!));
-                      },
-                      );
-                 },
-               ),
-             ),
-             
-           ],
-         ),  
-         Text(model.userName??'',style:const TextStyle(fontSize: 18)), 
-         model.statusTxt!=null?
-         Text(model.statusTxt!,style:const TextStyle(fontSize: 18)):const SizedBox() 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(widget.model.name, style: kProfileNameStyle),
+              SizedBox(
+                height: 25, 
+                child: LoginSignUpButtonWidget(
+                  fontSize: 12,
+                  text: isFriend ? '  Friends  ' : '  Add Friend  ',
+                  onPressed: isFriend ? null : handleFriendRequest,
+                ),
+              ),
+            ],
+          ),
+          Text(widget.model.userName ?? '', style: const TextStyle(fontSize: 18)),
+          if (widget.model.statusTxt != null) Text(widget.model.statusTxt!, style: const TextStyle(fontSize: 18)),
         ],
-      ) ,
+      ),
     );
   }
 }

@@ -1,8 +1,10 @@
+import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
+import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/views/splash/screen_splash.dart';
 import 'package:crowd_verse/data/sharedprefrense/shared_prefrense.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +17,8 @@ import 'presentation/views/profile/profile_bloc/profile_details_bloc.dart';
 
 void main()async {
    WidgetsFlutterBinding.ensureInitialized();
-     bool isLoggedIn = await SharedPreferenses.getBoolValue() ?? false;
-
+    bool isLoggedIn = await SharedPreferenses.getBoolValue() ?? false;
+    FriendlyChatService().connectSocket();
   runApp( MyApp(isLogin:isLoggedIn));
 }
 
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
   
   final bool isLogin;
 
-  @override
+  @override 
   Widget build(BuildContext context) {
      
     return 
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
        BlocProvider(create: (context) => ProfileDetailsBloc(),), 
        BlocProvider(create: (context) => SignupBloc(),), 
        BlocProvider(create: (context) => LoginBloc(),),
-       BlocProvider(create: (context) => FriendsBloc(),),  
+       BlocProvider(create: (context) => FriendsBloc(),), 
+       BlocProvider(create: (context) => FriendlyMessageBloc(),),
       ],
       child: 
       MaterialApp(

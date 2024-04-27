@@ -1,3 +1,4 @@
+import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/views/messages/messages.dart';
@@ -24,38 +25,59 @@ class _ScreenNavBarState extends State<ScreenNavBar> {
    ScreenNotification(),
    ScreenProfile()
   ];
-
+ 
   @override
   Widget build(BuildContext context) {
+      context.read<FriendsBloc>().add(GetAllFriendRequestsEvent());    
     return BlocBuilder<NavIndex, int>(
       builder: (context, selectedIndex) {
         return Scaffold(  
           body: _screens[selectedIndex], 
           bottomNavigationBar: Padding(  
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: GNav(
-
-              onTabChange: (value) {
-                context.read<NavIndex>().updateIndex(value);
-              }, 
-              activeColor:kClrBlue,   
-               iconSize: 30,
-              padding:const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-              duration:const Duration(milliseconds: 500), 
-               tabBackgroundColor:kClrLiteBlue,
-              tabs:const [
-                GButton( 
-                  icon: CupertinoIcons.home 
+            child: Stack(
+              children: [
+                GNav(
+                
+                  onTabChange: (value) {
+                    context.read<NavIndex>().updateIndex(value);
+                  }, 
+                  activeColor:kClrBlue,   
+                   iconSize: 30,
+                  padding:const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  duration:const Duration(milliseconds: 500), 
+                   tabBackgroundColor:kClrLiteBlue,
+                  tabs:const [
+                    GButton( 
+                      icon: CupertinoIcons.home 
+                    ),
+                    GButton( 
+                      icon: CupertinoIcons.chat_bubble_2,  
+                    ),
+                    GButton(
+                      icon: CupertinoIcons.bell,
+                    ),
+                    GButton(   
+                      icon: CupertinoIcons.person,
+                    ), 
+                  ],
                 ),
-                GButton( 
-                  icon: CupertinoIcons.chat_bubble_2,  
-                ),
-                GButton(
-                  icon: CupertinoIcons.bell,
-                ),
-                GButton(   
-                  icon: CupertinoIcons.person,
-                ), 
+              BlocBuilder<FriendsBloc, FriendsState>(
+                builder: (context, state) {
+                 if (state is GetAllFriendRequestsSuccesstate) {
+                   return  Positioned(
+                               bottom: 7,
+                               right: 120,  
+                               child:  CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  radius: 8,  
+                                  child: Center(child: Text(state.friends.length.toString(),style:const TextStyle(color: kClrWhite,fontSize: 12),)),
+                                ),
+                             );
+                 } 
+                 return const SizedBox();
+                },
+              ) 
               ],
             ),
           ),

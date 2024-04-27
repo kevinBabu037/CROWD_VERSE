@@ -2,7 +2,7 @@ import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/public_profile_shimmer.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -21,18 +21,17 @@ class PublicUserProfileDisplay extends StatefulWidget {
   @override
   State<PublicUserProfileDisplay> createState() => _PublicUserProfileDisplayState();
 }
-
+ 
 class _PublicUserProfileDisplayState extends State<PublicUserProfileDisplay> {
   @override
   void initState() {
    context.read<FriendsBloc>().add(PublicUserProfileDisplayEvent(id:widget.id));
     super.initState();
   }
-  @override
+  @override  
   Widget build(BuildContext context) {
     final screenSize=MediaQuery.of(context).size; 
-  
-   
+
     return Scaffold(
        appBar: AppBar(
         leading: IconButton(onPressed: (){
@@ -44,7 +43,7 @@ class _PublicUserProfileDisplayState extends State<PublicUserProfileDisplay> {
        
        ),
       backgroundColor: kClrProfileScafold, 
-      body: BlocBuilder<FriendsBloc, FriendsState>(
+      body: BlocBuilder<FriendsBloc, FriendsState>(  
         builder: (context, state) {
           if (state is PublicProfileLoadingState){
            return const Center(child:PublicProfileShimmer(),); 
@@ -67,7 +66,9 @@ class _PublicUserProfileDisplayState extends State<PublicUserProfileDisplay> {
                                    ) 
                               ),
                         ),
-                        kHeight60,
+                        kHeight60,  
+                   
+
                         PublicUserProfileDetailsWidget(screenSize: screenSize,model:state.users,),
                         kHeight30,
                         PublicUserAboutDetailsWidget(screenSize: screenSize,model:state.users,),

@@ -3,7 +3,7 @@ import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
 import 'package:crowd_verse/presentation/utils/core/style.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/views/friends/widgets/public_userprofile_display.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class AddFriends extends StatelessWidget {
            context.read<FriendsBloc>().add(PendingRequestsEvent());   
            Navigator.pop(context); 
         },  
-         icon:const Icon(Icons.arrow_back)),
+         icon:const Icon(Icons.arrow_back)), 
         centerTitle: true,
         title: const Text('Add Friends', style: kAppBarHedingStyke),
       ),
@@ -71,7 +71,7 @@ class AddFriends extends StatelessWidget {
                           leading:  CircleAvatar( 
                             radius: 30, 
                             backgroundImage:data.profilePhoto!=null?
-                            NetworkImage(data.profilePhoto!): 
+                            NetworkImage(data.profilePhoto!):  
                             AssetImage(kDefaultProfilePic) as ImageProvider, 
                           ),
                           title: Text(data.name ??''), 

@@ -27,7 +27,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
        final jsonResponse=jsonDecode(response!.body);
       if(response.statusCode==201){
         
-       
         String confirmToken = jsonResponse['result']['TemperveryToken'];
       
          emit(SignUpSuccessState(confirmToken: confirmToken));

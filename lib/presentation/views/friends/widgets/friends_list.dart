@@ -1,7 +1,7 @@
 
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/style.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_blc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
@@ -55,7 +55,7 @@ class _FriendsListState extends State<FriendsList> {
                         
                         return ListTile( 
                             onTap: () {
-                               kNavigationPush(context, PublicUserProfileDisplay(id: data.userId!, name:data.userName!)); 
+                               kNavigationPush(context, PublicUserProfileDisplay(id: data.userId!, name:data.userName!));
                             },
                           leading: InstaImageViewer(
                             child: CircleAvatar( 

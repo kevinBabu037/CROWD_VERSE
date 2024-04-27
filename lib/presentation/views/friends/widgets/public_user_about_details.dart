@@ -22,7 +22,7 @@ class PublicUserAboutDetailsWidget extends StatelessWidget {
         color: kClrWhite,
         borderRadius: BorderRadius.circular(20)
       ),
-      child: Column(
+      child: Column( 
          mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -33,18 +33,18 @@ kSnakBar(BuildContext context,String content,Color clr){
           );
 }
 
-kSnakBarToDisplayError(BuildContext context,String text){
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Column(crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(text),
-         const CircularProgressIndicator()
-        ],
-      )
-      )
-  );
-}
+// kSnakBarToDisplayError(BuildContext context,String text){
+//   ScaffoldMessenger.of(context).showSnackBar(
+//     SnackBar(
+//       content: Column(crossAxisAlignment: CrossAxisAlignment.center,
+//         children: [
+//           Text(text),
+//          const CircularProgressIndicator()
+//         ],
+//       )
+//       )
+//   );
+// }
 
 
 kShowDialog(
