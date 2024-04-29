@@ -1,3 +1,4 @@
+import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
 import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
@@ -18,14 +19,20 @@ class ScreenNavBar extends StatefulWidget {
   State<ScreenNavBar> createState() => _ScreenNavBarState();
 }
 
-class _ScreenNavBarState extends State<ScreenNavBar> {
+class _ScreenNavBarState extends State<ScreenNavBar> { 
   final List<Widget> _screens = const[
    ScreenHome(),
    ScreenMessages(),
    ScreenNotification(),
    ScreenProfile()
-  ];
- 
+  ]; 
+
+@override
+  void initState() {
+    FriendlyChatService().connectSocket(context: context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
       context.read<FriendsBloc>().add(GetAllFriendRequestsEvent());    
@@ -69,7 +76,7 @@ class _ScreenNavBarState extends State<ScreenNavBar> {
                                bottom: 7,
                                right: 120,  
                                child:  CircleAvatar(
-                                  backgroundColor: Colors.red,
+                                  backgroundColor:kClrRed,
                                   radius: 8,  
                                   child: Center(child: Text(state.friends.length.toString(),style:const TextStyle(color: kClrWhite,fontSize: 12),)),
                                 ),

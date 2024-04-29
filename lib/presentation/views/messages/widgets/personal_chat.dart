@@ -1,7 +1,9 @@
 
 
+import 'package:crowd_verse/data/models/friendly_message/friendly_messages.dart';
 import 'package:crowd_verse/data/models/friends/friends_model.dart';
 import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
+import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
@@ -23,25 +25,28 @@ class PersonalChat extends StatefulWidget {
   @override
   State<PersonalChat> createState() => _PersonalChatState();
 }
+ FriendlyChatService service =FriendlyChatService();
+ TextEditingController messageController =TextEditingController();
 
   
 class _PersonalChatState extends State<PersonalChat> {
- FriendlyChatService service =FriendlyChatService();
-
-
+   
+   ScrollController scrollController =ScrollController(); 
+  
   @override
   void initState() {
-     service.connectSocket();
     super.initState();
+   context.read<FriendlyMessageBloc>().add(GetAllMessagesEvent(userId:widget.data.userId!));
+
   }
-  @override
+ 
+
+  @override 
   Widget build(BuildContext context) {
-   TextEditingController messageController =TextEditingController();
-    context.read<FriendlyMessageBloc>().add(GetAllMessagesEvent(userId:widget.data.userId!));
     return  Scaffold(
       backgroundColor:const Color.fromARGB(255, 246, 243, 243) ,
-      appBar:AppBar(
-       leading:IconButton( 
+      appBar:AppBar( 
+       leading:IconButton(  
         onPressed: (){
           Navigator.pop(context); 
         },
@@ -51,7 +56,7 @@ class _PersonalChatState extends State<PersonalChat> {
          CircleAvatar(
           backgroundImage:widget.data.profilePhoto!=null?NetworkImage(widget.data.profilePhoto!):
             AssetImage(kDefaultProfilePic)as ImageProvider
-        ),  
+        ),   
         kWidth15,
          Text(widget.data.name,)
         ], 
@@ -61,20 +66,24 @@ class _PersonalChatState extends State<PersonalChat> {
         children: [ 
 
           Expanded(
-            child: BlocBuilder<FriendlyMessageBloc, FriendlyMessageState>(
-              builder: (context, state) {
+            child: BlocBuilder<FriendlyMessageBloc, FriendlyMessageState>( 
+           
+              builder: (context, state) { 
                 if (state is FriendlyMessageLoaddingState) {
                 return  const   Center(child: CircularProgressIndicator(),);
                 }
               if (state is FriendlyMessageSuccessState) { 
+                 WidgetsBinding.instance.addPostFrameCallback((_) { 
+                  scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                  });
                   return ListView.builder(
-                            reverse: true, 
+                        controller: scrollController,
                           itemCount: state.model!.length,  
                           itemBuilder: (BuildContext context, int index) { 
                             final data = state.model![index];
-                            if (data.senterId==widget.data.userId){
-                              return ChatTextOtherstWidget(chatTxt:data.message,data:widget.data,);
-                            }else{
+                            if (data.senterId==widget.data.userId){ 
+                              return ChatTextOtherstWidget(chatTxt:data.message,data:widget.data,chat: data,);
+                             }else{
                               return ChatTxtSelf(chatTxt:data.message);
                             }
                           },
@@ -82,7 +91,7 @@ class _PersonalChatState extends State<PersonalChat> {
               }
               if (state is FriendlyMessagEmptyState) {
                 return const Center(child: Text('no messages'),);
-              }
+              }  
               return const SizedBox(); 
               },
             ), 
@@ -94,16 +103,22 @@ class _PersonalChatState extends State<PersonalChat> {
               child: TextFormField( 
                 controller: messageController,
                 decoration: InputDecoration(
-                  filled: true,
+                  filled: true, 
                   fillColor:kClrWhite, 
                  suffixIcon: IconButton( 
-                  onPressed: (){
-                     if (messageController.text.trim().isNotEmpty) {
+                  onPressed: ()async{
+                     if (messageController.text.trim().isNotEmpty){
+                       String senderId = await SecureStorage().readSecureData('UserID');
+                       // ignore: use_build_context_synchronously
+                        service.sendMessage(widget.data.userId!, messageController.text,context);
 
-                   service.sendMessage(widget.data.userId!, messageController.text);
-     
-                     messageController.clear(); 
-                     }
+                       final chat = FriendlyChatModel(time:DateTime.now().toString(), message: messageController.text, senterId:senderId , resrverId: widget.data.userId!);
+
+                       // ignore: use_build_context_synchronously
+                       context.read<FriendlyMessageBloc>().add(SendMessageEvent(chat:chat ));
+                      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                      messageController.clear();  
+                     } 
                   }, 
                   icon:const Icon(Icons.send,)),
                   hintText: 'Message',  
@@ -119,6 +134,9 @@ class _PersonalChatState extends State<PersonalChat> {
       )
     );
   }
+
+  
+
 
 
 }

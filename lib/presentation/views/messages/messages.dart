@@ -38,7 +38,7 @@ class _ScreenMessagesState extends State<ScreenMessages> {
                if (state is GetAllFriendsErrorState){
                const Center(child: Text("Error!!!")); 
             }
-            },
+            }, 
             child: Expanded( 
               child: BlocBuilder<FriendsBloc, FriendsState>(
                 builder: (context, state) {  

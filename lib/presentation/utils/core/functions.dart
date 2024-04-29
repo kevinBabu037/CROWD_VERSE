@@ -33,18 +33,6 @@ kSnakBar(BuildContext context,String content,Color clr){
           );
 }
 
-// kSnakBarToDisplayError(BuildContext context,String text){
-//   ScaffoldMessenger.of(context).showSnackBar(
-//     SnackBar(
-//       content: Column(crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           Text(text),
-//          const CircularProgressIndicator()
-//         ],
-//       )
-//       )
-//   );
-// }
 
 
 kShowDialog(
@@ -76,13 +64,45 @@ kShowDialog(
                );
              },
              );
+} 
+
+
+
+String kDateTimeConverter(String date) {
+  try {
+    DateTime joinDate = DateTime.parse(date.split(' ')[0]);
+    
+    String formattedDate = DateFormat.yMMMMd().format(joinDate);
+    
+    return formattedDate;
+  } catch (e) {
+    return 'Invalid Date';
+  }
 }
 
 
+String kMessageTimeConverter(String dateString) {
+  try {
+    List<String> parts = dateString.split(' ');
 
-String kDateTimeConverter(String date){
-  DateTime joinDate = DateTime.parse(date.split(' ')[0]);
-  String formattedDate = DateFormat.yMMMMd().format(joinDate);
-   return formattedDate;
+    String timePart = parts[1];
+
+    List<String> timeParts = timePart.split(':');
+    int hour = int.parse(timeParts[0]);
+    int minute = int.parse(timeParts[1]);
+
+    String period = (hour < 12) ? 'AM' : 'PM';
+
+    if (hour > 12) {
+      hour = hour - 12;
+    } else if (hour == 0) {
+      hour = 12; 
+    } 
+
+    String formattedTime = '$hour:${minute.toString().padLeft(2, '0')} $period';
+
+    return formattedTime;
+  } catch (e) {
+    return ''; 
+  }
 }
-

@@ -11,19 +11,21 @@ import 'package:crowd_verse/presentation/utils/core/endpoints.dart';
 import 'package:http/http.dart' as http;
 
 class  FriendsServeses {
+
+     SecureStorage storage =SecureStorage() ;
+
+  
   
    Future<List<FriendsModel>?>getAllFriends()async{
    final url =Uri.parse("${EndPoint.baseUrl}/friend/friends?page=1&limit=12"); 
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
 
        try {
           
         final response = await http.get(
-          url,
+          url, 
           headers: { 
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
          }, 
         );
 
@@ -54,8 +56,7 @@ class  FriendsServeses {
 
     Future<List<FriendRequestsModel>?>getAllRequests()async{ 
    final url =Uri.parse("${EndPoint.baseUrl}/friend/received?page=1&limit=5");    
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   final accessToken = await storage.readSecureData('AccessToken'); 
 
        try {
           
@@ -63,7 +64,6 @@ class  FriendsServeses {
           url,
           headers: { 
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
          }, 
         );
        
@@ -93,8 +93,7 @@ class  FriendsServeses {
 
     Future<bool>requstAcceptOrReject(String acceptOrReject,String friendshipId)async{ 
    final url =Uri.parse("${EndPoint.baseUrl}/friend/friendrequest?action=$acceptOrReject");    
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   final accessToken = await storage.readSecureData('AccessToken'); 
        
     final body ={
     "FrendShipID" :friendshipId
@@ -109,7 +108,6 @@ class  FriendsServeses {
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
         },
         );
          
@@ -134,8 +132,7 @@ class  FriendsServeses {
 
     Future<List<FriendRequestsModel>?>requstSendedList()async{ 
    final url =Uri.parse("${EndPoint.baseUrl}/friend/send?page=1&limit=10");    
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   final accessToken = await storage.readSecureData('AccessToken'); 
 
       try {
 
@@ -143,7 +140,6 @@ class  FriendsServeses {
         url, 
         headers: {   
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
         },
         );
          
@@ -172,8 +168,7 @@ class  FriendsServeses {
 
      Future<bool>removeFromPending(String friendshipId)async{ 
     final url =Uri.parse("${EndPoint.baseUrl}/friend/friendrequest?action=revoke");    
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   final accessToken = await storage.readSecureData('AccessToken'); 
        
     final body ={
     "FrendShipID" :friendshipId
@@ -188,7 +183,6 @@ class  FriendsServeses {
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
         },
         );
          
@@ -212,15 +206,13 @@ class  FriendsServeses {
 
    Future<List<SearchAllUserModel>?>searchAllFriends(String? searchTxt)async{ 
    final url =Uri.parse("${EndPoint.baseUrl}/users?username=$searchTxt&page=1&limit=15");     
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   final accessToken = await storage.readSecureData('AccessToken'); 
       try {
 
       final respose = await http.get(
         url, 
         headers: {   
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
         },
         );
          
@@ -247,8 +239,7 @@ class  FriendsServeses {
 
    Future<bool>followFriend(String friendId)async{ 
    final url =Uri.parse("${EndPoint.baseUrl}/friend/request");    
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   final accessToken = await storage.readSecureData('AccessToken'); 
        
     final body ={
     "FriendID" :friendId
@@ -263,7 +254,6 @@ class  FriendsServeses {
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
         },
         );
          
@@ -285,8 +275,7 @@ class  FriendsServeses {
 
      Future<bool>blockOrUnBlock(String friendshipId,String blockOrUnBloc)async{ 
    final url =Uri.parse("${EndPoint.baseUrl}/friend/restrict?action=$blockOrUnBloc");    
-   String accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken'); 
+   String accessToken = await storage.readSecureData('AccessToken'); 
        
     final body ={
     "FrendShipID" :friendshipId
@@ -301,7 +290,6 @@ class  FriendsServeses {
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
         },
         );
          
@@ -322,8 +310,7 @@ class  FriendsServeses {
 
     Future<List<BlockListModel>?>getAllBlockList()async{
    final url =Uri.parse("${EndPoint.baseUrl}/friend/block?page=1&limit=10"); 
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-  //  final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
 
        try {
           
@@ -331,7 +318,6 @@ class  FriendsServeses {
           url,
           headers: { 
           "AccessToken":accessToken,  
-          // "RefreshToken":refreshToken 
          }, 
         );
 

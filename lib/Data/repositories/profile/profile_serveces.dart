@@ -9,17 +9,18 @@ import 'package:http/http.dart' as http;
 import '../../models/profile/profile_modle.dart';
 
 class ProfileServices{
+  
+  SecureStorage storage =SecureStorage();
+
 
  Future<ProfileModel?> getUserDetails()async{
     final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.profile}") ;
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
     try {
       final response=await http.get( 
         url, 
         headers: {
           "AccessToken":accessToken,
-          "RefreshToken":refreshToken
         } 
         );  
       log("data from get profile:${ response.body}"); 
@@ -41,8 +42,7 @@ class ProfileServices{
 
   Future<bool>  deleteStatus()async{
        final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.profileStatus}") ; 
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
   
    final body={
     "Status":" ",
@@ -54,7 +54,6 @@ class ProfileServices{
         url, 
         headers: {
           "AccessToken":accessToken,  
-          "RefreshToken":refreshToken
         },
            
         body: jsonEncode(body)     
@@ -79,13 +78,11 @@ class ProfileServices{
    Future<int> uploadCoverPic(String imgPath)async{
      
    final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadCoverphoto}") ; 
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
 
     final header={
           "Content-Type":"multipart/form-data", 
           "AccessToken":accessToken,
-          "RefreshToken":refreshToken
         };
 
      try {
@@ -119,13 +116,11 @@ class ProfileServices{
     Future<int> uploadProfilePic(String imgPath)async{
      
    final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadProfilephoto}") ; 
-   final accessToken = await SecureStorage().readSecureData('AccessToken');  
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken');  
 
     final header={
           "Content-Type":"multipart/form-data", 
           "AccessToken":accessToken,
-          "RefreshToken":refreshToken
         };
 
      try {
@@ -158,8 +153,7 @@ class ProfileServices{
   
    Future<void> addDiscription(String about)async{
    final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadDiscription}");
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
    final body ={
      "Description":about 
    };
@@ -170,7 +164,6 @@ class ProfileServices{
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          "RefreshToken":refreshToken 
         }, 
         body: jsonEncode(body)
         );  
@@ -185,8 +178,7 @@ class ProfileServices{
 
   Future<void> deleteDiscription()async{
    final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadDiscription}");
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
    final body ={
      "Description":'' 
    };
@@ -197,7 +189,6 @@ class ProfileServices{
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          "RefreshToken":refreshToken 
         }, 
         body: jsonEncode(body)
         );  
@@ -214,8 +205,7 @@ class ProfileServices{
 
      Future<bool> addStatus(String text)async{
    final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.uploadStatus}");
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
    final body ={
      "Status":text ,
      "Duration":24
@@ -227,7 +217,6 @@ class ProfileServices{
         headers: {  
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          "RefreshToken":refreshToken 
         }, 
         body: jsonEncode(body) 
         );  
@@ -247,8 +236,7 @@ class ProfileServices{
 
     Future<bool>deleteProfilrandCoverPic(String type)async{
         final url =Uri.parse("${EndPoint.baseUrl}${EndPoint.deleteProfileAndCoverPic}");
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
     final body={
     "Type" :type
     };
@@ -262,7 +250,6 @@ class ProfileServices{
         headers: { 
           "Content-Type": "application/json",
           "AccessToken":accessToken,  
-          "RefreshToken":refreshToken 
         }, 
         );
         log("delete profile pic and cover ${response.body}");
@@ -280,14 +267,12 @@ class ProfileServices{
 
     Future<PublicProfileModel?> publicUserAllDetails(String id)async{
     final url =Uri.parse("${EndPoint.baseUrl}/profile/$id") ;
-   final accessToken = await SecureStorage().readSecureData('AccessToken'); 
-   final refreshToken = await SecureStorage().readSecureData('RefresToken');
+   final accessToken = await storage.readSecureData('AccessToken'); 
     try {
       final response=await http.get( 
         url, 
         headers: {
           "AccessToken":accessToken,
-          "RefreshToken":refreshToken
         } 
         );  
 

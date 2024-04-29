@@ -6,11 +6,11 @@ class EndPoint{
  static String login="/login";
  static String resetPassConfirmMail="/sendotp";
  static String forgotPass ="/forgotpassword";
-static String profile ="/profile/";
-static String profileStatus ="/profile/status";
-static String uploadCoverphoto = "/profile/coverphoto";
+ static String profile ="/profile/";
+ static String profileStatus ="/profile/status";
+ static String uploadCoverphoto = "/profile/coverphoto";
  static String uploadProfilephoto = "/profile/profilephoto";
-static String uploadDiscription ="/profile/description"; 
-static String uploadStatus ="/profile/status";
-static String deleteProfileAndCoverPic ="/profile/photoprofile";
+ static String uploadDiscription ="/profile/description"; 
+ static String uploadStatus ="/profile/status";
+ static String deleteProfileAndCoverPic ="/profile/photoprofile";
 } 

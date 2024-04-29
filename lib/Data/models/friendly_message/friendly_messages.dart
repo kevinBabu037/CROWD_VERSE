@@ -1,5 +1,5 @@
 class FriendlyChatModel{
- final String time ;
+ final String time;
  final String message ;
  final String senterId ;
  final String resrverId ;
@@ -22,5 +22,15 @@ class FriendlyChatModel{
     }
 
 
+    Map<String, dynamic> toJson() {
+    return {
+      "Type": "text",
+      "Tag":"nil",
+      "content": message,
+      "sender_id": senterId,
+      "recipient_id": resrverId,
+    };
+  }
+   
 
 } 

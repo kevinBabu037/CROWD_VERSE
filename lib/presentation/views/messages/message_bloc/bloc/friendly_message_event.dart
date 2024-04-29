@@ -8,3 +8,19 @@ class GetAllMessagesEvent extends FriendlyMessageEvent {
 
   GetAllMessagesEvent({required this.userId});
 }
+
+
+class ResiveMsgEvent extends FriendlyMessageEvent{
+  final FriendlyChatModel chat;
+
+  ResiveMsgEvent({required this.chat});
+}
+
+
+
+
+class SendMessageEvent extends FriendlyMessageEvent{
+  final FriendlyChatModel chat;
+
+  SendMessageEvent({required this.chat});
+}

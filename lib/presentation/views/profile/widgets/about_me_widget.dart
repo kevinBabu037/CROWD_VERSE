@@ -59,13 +59,13 @@ Widget build(BuildContext context) {
               return const ShimmerCoverPicLoading(height: 120);
             }
             if (state is ProfileSuccessState) {
-             final date = kDateTimeConverter(state.profile.joinDate!); 
-              return Text(
-                date, 
+             String date = kDateTimeConverter(state.profile.joinDate!);   
+              return Text( 
+                date,  
                 style: const TextStyle(fontSize: 18),
-              );
-            }
-            return const SizedBox();
+              ); 
+            } 
+            return const SizedBox(); 
           },
         ),
       ],

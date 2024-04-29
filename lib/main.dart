@@ -1,4 +1,3 @@
-import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
@@ -11,14 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'presentation/views/profile/profile_bloc/profile_details_bloc.dart';
-
+ 
  
 
 
 void main()async {
    WidgetsFlutterBinding.ensureInitialized();
+   
     bool isLoggedIn = await SharedPreferenses.getBoolValue() ?? false;
-    FriendlyChatService().connectSocket();
   runApp( MyApp(isLogin:isLoggedIn));
 }
 
@@ -29,10 +28,10 @@ class MyApp extends StatelessWidget {
 
   @override 
   Widget build(BuildContext context) {
-     
+
     return 
      MultiBlocProvider(    
-      providers: [
+      providers: [ 
        BlocProvider(create: (context) => NavIndex(),), 
        BlocProvider(create: (context) => ProfileDetailsBloc(),), 
        BlocProvider(create: (context) => SignupBloc(),), 
