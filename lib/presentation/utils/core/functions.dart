@@ -105,4 +105,15 @@ String kMessageTimeConverter(String dateString) {
   } catch (e) {
     return ''; 
   }
+} 
+
+
+String kdateConverter(String dateString) {
+  try {
+    DateTime dateTime = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').parse(dateString);
+    String formattedDate = DateFormat.yMd().format(dateTime);
+    return formattedDate;
+  } catch (e) {
+    return 'error';
+  }
 }

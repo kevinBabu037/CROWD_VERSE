@@ -2,12 +2,12 @@ import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/lo
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/widgets/textform_field_in_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../utils/core/color.dart';
 import '../../../../utils/validations/validation.dart';
 import '../../../../widgets/login_signuu_heding.dart';
-import '../../signup/widgets/text_form.dart';
 import 'password_sucess_widget.dart';
 
 

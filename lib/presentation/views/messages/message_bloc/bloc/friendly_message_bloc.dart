@@ -24,17 +24,17 @@ class FriendlyMessageBloc extends Bloc<FriendlyMessageEvent, FriendlyMessageStat
  
     });
 
-  on<ResiveMsgEvent>((event, emit) {
+   on<ResiveMsgEvent>((event, emit) {
       allChats.add(event.chat); 
-      emit(FriendlyMessageSuccessState(model:allChats)); 
-  });
+       emit(FriendlyMessageSuccessState(model:allChats)); 
+   });
    
  
- on<SendMessageEvent>((event, emit) {
+  on<SendMessageEvent>((event, emit) {
    allChats.add(event.chat);
    emit(FriendlyMessageSuccessState(model:allChats)); 
 
- });
+  });
 
 
 

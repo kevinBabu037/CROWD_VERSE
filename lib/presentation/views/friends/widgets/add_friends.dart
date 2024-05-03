@@ -2,9 +2,9 @@ import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
-import 'package:crowd_verse/presentation/utils/core/style.dart';
 import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
 import 'package:crowd_verse/presentation/views/friends/widgets/public_userprofile_display.dart';
+import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,17 +17,15 @@ class AddFriends extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<FriendsBloc>().add(SearchAllUsersEvent(searchTxt:'')); 
     return Scaffold(  
-      appBar: AppBar( 
-        leading: 
-        IconButton(onPressed: (){
-           context.read<FriendsBloc>().add(GetAllFriendsEvent()); 
+      appBar:CustomAppBar(
+        icon: Icons.arrow_back ,
+        title: 'Add Friends',
+        onPressed: () {
+            context.read<FriendsBloc>().add(GetAllFriendsEvent()); 
            context.read<FriendsBloc>().add(PendingRequestsEvent());   
            Navigator.pop(context); 
-        },  
-         icon:const Icon(Icons.arrow_back)), 
-        centerTitle: true,
-        title: const Text('Add Friends', style: kAppBarHedingStyke),
-      ),
+        },
+      ), 
       body: SizedBox( 
         height: MediaQuery.of(context).size.height,
         child: Column(

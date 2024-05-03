@@ -3,11 +3,11 @@ import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
 import 'package:crowd_verse/presentation/utils/validations/validation.dart';
+import 'package:crowd_verse/presentation/widgets/textform_field_in_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../utils/core/color.dart';
 import '../../../../utils/core/functions.dart';
-import '../../signup/widgets/text_form.dart';
 import 'verify_otp.dart';
 
 class ScreenForgotPassword extends StatelessWidget {

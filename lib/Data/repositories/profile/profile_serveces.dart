@@ -10,7 +10,7 @@ import '../../models/profile/profile_modle.dart';
 
 class ProfileServices{
   
-  SecureStorage storage =SecureStorage();
+  SecureStorage storage = SecureStorage();
 
 
  Future<ProfileModel?> getUserDetails()async{

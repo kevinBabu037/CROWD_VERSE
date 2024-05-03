@@ -61,8 +61,8 @@ class _FriendsListState extends State<FriendsList> {
                             child: CircleAvatar( 
                               radius: 30,
                               backgroundImage: data.profilePhoto != null
-                                  ? NetworkImage(data.profilePhoto!)
-                                  : AssetImage(kDefaultProfilePic) as ImageProvider, 
+                               ? NetworkImage(data.profilePhoto!)
+                               : AssetImage(kDefaultProfilePic) as ImageProvider, 
                             ),
                           ),
                           title: Text(
@@ -72,22 +72,19 @@ class _FriendsListState extends State<FriendsList> {
                           subtitle: Text("${data.userName}"), 
                            trailing:  
           IconButton(onPressed: (){ 
-            kShowDialog(  
+            kShowDialog(   
               context: context, 
               title: 'Block User', 
-              contentTxt: 'Are you sure want to bloc ${data.name}', 
+              contentTxt: 'Are you sure want to block ${data.name}',
               actionBtn1Txt: 'Cancel', 
               actionBtn2Txt: 'Block', 
-              onPressed: (){  
-
-                context.read<FriendsBloc>().add(BlockUserEvent(friendShipId:data.friendShipId!));
+              onPressed: (){ 
+               context.read<FriendsBloc>().add(BlockUserEvent(friendShipId:data.friendShipId!));
               Navigator.pop(context); 
             }); 
-
           }, 
            icon:const Icon(Icons.more_vert)), 
-        
-                        ); 
+                     ); 
                       },
                       separatorBuilder: (context, index) =>     
                           const Divider(thickness: 0.1),

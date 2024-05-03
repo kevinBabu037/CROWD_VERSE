@@ -1,11 +1,14 @@
 
+import 'package:crowd_verse/data/models/friends/friends_model.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
 import 'package:crowd_verse/presentation/utils/core/style.dart';
 import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
 import 'package:crowd_verse/presentation/views/messages/widgets/personal_chat.dart';
+import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
@@ -20,16 +23,17 @@ class ScreenMessages extends StatefulWidget {
 
 
 class _ScreenMessagesState extends State<ScreenMessages> {
+  @override 
+  void initState() {
+    context.read<FriendlyMessageBloc>().add(GetAllMessagesEvent(userId:'60'));
+    context.read<FriendsBloc>().add(GetAllFriendsEvent());  
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    context.read<FriendsBloc>().add(GetAllFriendsEvent());  
-
     return Scaffold( 
-      appBar: AppBar(
-        centerTitle: true,
-        title:const Text('Messages',style: kAppBarHedingStyke,),
-      ),
+      appBar:const CustomAppBar(title:'Messages'),
       body: Column(
         children: [         
           kHeight15,
@@ -41,8 +45,8 @@ class _ScreenMessagesState extends State<ScreenMessages> {
             }, 
             child: Expanded( 
               child: BlocBuilder<FriendsBloc, FriendsState>(
-                builder: (context, state) {  
-           
+                builder: (context, state) {   
+                   
                     if (state is GetAllFriendsLoadingState) {
                     return const Center(child: ShimmerFriendsListTile());     
                   }
@@ -50,11 +54,12 @@ class _ScreenMessagesState extends State<ScreenMessages> {
                    return  const Center(child: Text("No chat yet",style: kAppBarHedingStyke,),);
                   }                         
                   if (state is GetAllFriendsSuccsessState) {
+                      
                     return ListView.separated( 
                       physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, index) { 
-                        final data = state.friends[index]; 
-    
+                        FriendsModel data  = state.friends[index]; 
+                        String time = kMessageTimeConverter(data.lastMsgTime!);
                         return ListTile( 
                             onTap: () {
                               kNavigationPush(context, PersonalChat(data: data,));
@@ -66,21 +71,21 @@ class _ScreenMessagesState extends State<ScreenMessages> {
                                   ? NetworkImage(data.profilePhoto!)
                                   : AssetImage(kDefaultProfilePic) as ImageProvider, 
                             ),
-                          ),
+                          ), 
                           title: Text(
                             data.name,
-                            style: const TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18), 
                           ),
-                          subtitle: Text("${data.userName}"),               
-        
-                        ); 
+                          subtitle:data.lastMsg!=null? Text(data.lastMsg!,overflow: TextOverflow.ellipsis,) : Text(data.userName??''),
+                          trailing: Text(time),
+                          );
                       },
-                      separatorBuilder: (context, index) =>     
+                      separatorBuilder: (context, index) =>      
                           const Divider(thickness: 0.1),
                       itemCount: state.friends.length,
                     );
                   } 
-                  return const Center(child: Text('Fail to Fetch'));
+                  return const Center(child: Text(''));
                 },
               ),
             ),

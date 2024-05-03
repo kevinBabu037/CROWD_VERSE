@@ -6,11 +6,11 @@ import 'package:crowd_verse/presentation/views/authentication/signup/screen_sign
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:crowd_verse/presentation/widgets/login_signuu_heding.dart';
+import 'package:crowd_verse/presentation/widgets/textform_field_in_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../utils/core/color.dart';
 import '../../../utils/validations/validation.dart';
-import '../signup/widgets/text_form.dart';
 import 'widgets/forget_pass.dart';
 
 class ScreenLogIn extends StatelessWidget {
@@ -72,7 +72,6 @@ class ScreenLogIn extends StatelessWidget {
                   //////////////////
             
                         kHeight60, 
-            
 
                      BlocConsumer<LoginBloc, LoginState>( 
                       listener: (context, state) {

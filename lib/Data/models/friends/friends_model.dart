@@ -7,6 +7,8 @@ String? profilePhoto;
 String? userName;
 String? friendShipId;
 String? userId;
+String? lastMsg;
+String? lastMsgTime;
 
 
   FriendsModel({ 
@@ -14,8 +16,9 @@ String? userId;
     this.profilePhoto,
     this.userName,
     this.friendShipId,
-    this.userId
-
+    this.userId,
+    this.lastMsg,
+    this.lastMsgTime
     });
  
      factory FriendsModel.fromJson( Map<String,dynamic>json){
@@ -24,7 +27,9 @@ String? userId;
         name: json['name'],
         profilePhoto: json['profilePhoto'],
         friendShipId: json['FriendShipID'],
-        userId: json['userID']
+        userId: json['userID'],
+        lastMsg: json['LastMessage'],
+        lastMsgTime: json['UpdateAt']
         ); 
     }
 

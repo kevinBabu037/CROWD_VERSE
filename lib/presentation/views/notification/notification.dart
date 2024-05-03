@@ -4,6 +4,7 @@ import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
 import 'package:crowd_verse/presentation/utils/core/style.dart';
 import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
+import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,14 +17,11 @@ class ScreenNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<FriendsBloc>().add(GetAllFriendRequestsEvent());    
     return  Scaffold(
-      appBar: AppBar(
-        centerTitle: true, 
-        title:const Text('Notifications',style: kAppBarHedingStyke,),
-      ),
+      appBar:const CustomAppBar(title: 'Notification'),
       body: BlocListener<FriendsBloc, FriendsState>(  
         listener: (context, state) {          
              if(state is GetAllFriendRequestsErrorState){ 
-                const Center(child: Text("error"),);
+                const Center(child: Text("error"),); 
             }            
         },  
         child: BlocBuilder<FriendsBloc, FriendsState>( 
@@ -107,3 +105,6 @@ class ScreenNotification extends StatelessWidget {
     );
   }
 }
+
+
+

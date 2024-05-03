@@ -1,29 +1,42 @@
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
-import 'package:crowd_verse/presentation/utils/core/style.dart';
 import 'package:crowd_verse/presentation/views/profile/profile_bloc/profile_details_bloc.dart';
 import 'package:crowd_verse/presentation/views/settings/widgets/block_list.dart';
+import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../authentication/login/screen_login.dart';
 import 'widgets/settings_items_widget.dart';
 
 class ScreenSettings extends StatelessWidget {
-  const ScreenSettings({super.key});
+  const ScreenSettings({super.key}); 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kClrProfileScafold,
-      appBar: AppBar(
-        centerTitle: true,
-       title:const Text("Settings",style:kAppBarHedingStyke,), 
+      appBar:
+       CustomAppBar(
+        icon: Icons.arrow_back, 
+        title: 'Settings',
+       onPressed: () {
+         Navigator.pop(context); 
+       },
       ),
       body: Column(
         children: [
           kHeight10,
-          GestureDetector(
+          
+          SettingsItemsWidget(
+              icon: Icons.block, 
+              title: "Block List",
+              onTap: () {
+                kNavigationPush(context,const BlockList());
+              },
+              ),
+      
+            GestureDetector(
             onTap: () {
               kShowDialog(
               context: context, 
@@ -41,16 +54,7 @@ class ScreenSettings extends StatelessWidget {
               icon: Icons.logout,
               title: "Log Out",),
           ),
-          SettingsItemsWidget(
-              icon: Icons.block, 
-              title: "Block List",
-              onTap: () {
-                kNavigationPush(context,const BlockList());
-              },
-              ),
-      
-      
-          kHeight60,
+          
          
         ],
       ),

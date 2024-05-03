@@ -1,5 +1,4 @@
 
-
 import 'package:crowd_verse/data/models/friendly_message/friendly_messages.dart';
 import 'package:crowd_verse/data/models/friends/friends_model.dart';
 import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
@@ -10,6 +9,7 @@ import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
 import 'package:crowd_verse/presentation/views/messages/widgets/chat_other_widget.dart';
 import 'package:crowd_verse/presentation/views/messages/widgets/chat_self_widget.dart';
+import 'package:crowd_verse/presentation/views/messages/widgets/chat_textform_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +31,7 @@ class PersonalChat extends StatefulWidget {
   
 class _PersonalChatState extends State<PersonalChat> {
    
-   ScrollController scrollController =ScrollController(); 
+   ScrollController scrollController = ScrollController(); 
   
   @override
   void initState() {
@@ -39,12 +39,15 @@ class _PersonalChatState extends State<PersonalChat> {
    context.read<FriendlyMessageBloc>().add(GetAllMessagesEvent(userId:widget.data.userId!));
 
   }
+
+
+  
  
 
   @override 
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor:const Color.fromARGB(255, 246, 243, 243) ,
+      backgroundColor:kClrProfileScafold,
       appBar:AppBar( 
        leading:IconButton(  
         onPressed: (){
@@ -77,17 +80,17 @@ class _PersonalChatState extends State<PersonalChat> {
                   scrollController.jumpTo(scrollController.position.maxScrollExtent);
                   });
                   return ListView.builder(
-                        controller: scrollController,
-                          itemCount: state.model!.length,  
-                          itemBuilder: (BuildContext context, int index) { 
-                            final data = state.model![index];
-                            if (data.senterId==widget.data.userId){ 
-                              return ChatTextOtherstWidget(chatTxt:data.message,data:widget.data,chat: data,);
-                             }else{
-                              return ChatTxtSelf(chatTxt:data.message);
-                            }
-                          },
-                        );            
+                 controller: scrollController,
+                   itemCount: state.model!.length,  
+                   itemBuilder: (BuildContext context, int index) { 
+                     final data = state.model![index]; 
+                     if (data.senterId==widget.data.userId){ 
+                       return ChatTextOtherstWidget(data:widget.data,chat: data,date:'');
+                      }else{
+                       return ChatTxtSelf(data:data); 
+                     } 
+                   },
+                 );            
               }
               if (state is FriendlyMessagEmptyState) {
                 return const Center(child: Text('no messages'),);
@@ -96,53 +99,34 @@ class _PersonalChatState extends State<PersonalChat> {
               },
             ), 
           ), 
-          SizedBox(
-            height: 70 ,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField( 
-                controller: messageController,
-                decoration: InputDecoration(
-                  filled: true, 
-                  fillColor:kClrWhite, 
-                 suffixIcon: IconButton( 
-                  onPressed: ()async{
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ChatTextFormField(
+              controller: messageController, 
+              onPressed: ()async{
                      if (messageController.text.trim().isNotEmpty){
-                       String senderId = await SecureStorage().readSecureData('UserID');
-                       // ignore: use_build_context_synchronously
-                        service.sendMessage(widget.data.userId!, messageController.text,context);
-
-                       final chat = FriendlyChatModel(time:DateTime.now().toString(), message: messageController.text, senterId:senderId , resrverId: widget.data.userId!);
-
-                       // ignore: use_build_context_synchronously
-                       context.read<FriendlyMessageBloc>().add(SendMessageEvent(chat:chat ));
-                      scrollController.jumpTo(scrollController.position.maxScrollExtent);
-                      messageController.clear();  
-                     } 
-                  }, 
-                  icon:const Icon(Icons.send,)),
-                  hintText: 'Message',  
-                  border:const OutlineInputBorder(
-                   borderSide: BorderSide.none,   
-                    borderRadius: BorderRadius.all(Radius.circular(30))
-                  )
-                ), 
-              ),
-            ),
+                     String senderId = await SecureStorage().readSecureData('UserID');
+                     // ignore: use_build_context_synchronously
+                      service.sendMessage(widget.data.userId!, messageController.text,context);
+          
+                     final chat = FriendlyChatModel(time:DateTime.now().toString(), message: messageController.text, senterId:senderId , resrverId: widget.data.userId!);
+          
+                     // ignore: use_build_context_synchronously
+                     context.read<FriendlyMessageBloc>().add(SendMessageEvent(chat:chat ));
+                    scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                    messageController.clear();  
+                   }
+              }, 
+              scrollController: scrollController
+              )        
           )
         ],
       )
     );
   }
-
-  
-
-
-
 }
  
 
- 
 
 
 

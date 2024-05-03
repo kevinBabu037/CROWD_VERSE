@@ -1,5 +1,9 @@
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/cubit/selected_server_border.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/server_list_bloc/server_bloc.dart';
+import 'package:crowd_verse/presentation/views/messages/cubit/max_line_textform.dart';
 import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
@@ -27,12 +31,16 @@ class MyApp extends StatelessWidget {
   final bool isLogin;
 
   @override 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
 
     return 
      MultiBlocProvider(    
       providers: [ 
+       BlocProvider(create: (context) => ServerDetailsBloc(),), 
+       BlocProvider(create: (context) => ServerBloc(),), 
+       BlocProvider(create: (context) => ServerListCubit(),), 
        BlocProvider(create: (context) => NavIndex(),), 
+       BlocProvider(create: (context) => MaxLineCubit(),),
        BlocProvider(create: (context) => ProfileDetailsBloc(),), 
        BlocProvider(create: (context) => SignupBloc(),), 
        BlocProvider(create: (context) => LoginBloc(),),
@@ -42,7 +50,9 @@ class MyApp extends StatelessWidget {
       child: 
       MaterialApp(
         debugShowCheckedModeBanner: false, 
-        theme: ThemeData( 
+        theme:
+         ThemeData( 
+           
           textTheme: GoogleFonts.workSansTextTheme().copyWith(     
             displayLarge: GoogleFonts.workSans(),),
           fontFamily: GoogleFonts.roboto().fontFamily,

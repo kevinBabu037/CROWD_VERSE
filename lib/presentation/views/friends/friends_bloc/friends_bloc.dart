@@ -1,5 +1,4 @@
 import 'dart:async';
-// import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:crowd_verse/data/models/friends/block_list_model.dart';
@@ -9,7 +8,6 @@ import 'package:crowd_verse/data/models/friends/search_all_user.dart';
 import 'package:crowd_verse/data/models/profile/public_profile_model.dart';
 import 'package:crowd_verse/data/repositories/friends/friends_serveces.dart';
 import 'package:crowd_verse/data/repositories/profile/profile_serveces.dart';
-// import 'package:http/http.dart';
 part 'friends_event.dart';
 part 'friends_state.dart';
  
@@ -23,7 +21,6 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
     on<RemoveFromPendingrequestsEvent>(removeFromPendingrequestsEvent);
     on<SearchAllUsersEvent>(searchAllUsersEvent);
     on<PublicUserProfileDisplayEvent>(publicUserProfileDisplayEvent);
-    // on<CreateFriendEvent>(createFriendEvent);
     on<BlockUserEvent>(blockUserEvent);
     on<UnBlockUser>(unBlockUser);
     on<GetAllBlockListEvent>(getAllBlockList);
@@ -144,23 +141,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
        
   }
 
-  // FutureOr<void> createFriendEvent(CreateFriendEvent event, Emitter<FriendsState> emit)async{
-    
-  //   emit(CreateFriendLoadingState());
 
-  //   Response? response = await FriendsServeses().followFriend(event.id);
-  //   PublicProfileModel? model = await ProfileServices().publicUserAllDetails(event.id);   
-  //   if (response!.statusCode==200) {
-  //     emit(CreateFriendRequestSentSuccessState()); 
-  //      emit(PublicProfileSuccessState(users: model!)); 
-  //   }
-  //   if (response.statusCode !=201) { 
-  //      Map<String, dynamic> responseBody = jsonDecode(response.body);
-  //      String errorMessage = responseBody['error']; 
-  //     emit(CreateFriendErrorState(errorMsg:errorMessage));
-  //     emit(PublicProfileSuccessState(users: model!)); 
-  //   }
-  // }
   
   FutureOr<void> blockUserEvent(BlockUserEvent event, Emitter<FriendsState> emit)async {
 

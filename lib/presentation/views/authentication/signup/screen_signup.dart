@@ -3,6 +3,7 @@ import 'package:crowd_verse/presentation/views/authentication/signup/widgets/ema
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/widgets/google_auth.wdget.dart';
+import 'package:crowd_verse/presentation/widgets/textform_field_in_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/auth/user.dart';
@@ -11,7 +12,6 @@ import '../../../utils/validations/validation.dart';
 import '../../../widgets/login_signup_button.dart';
 import '../../../widgets/login_signuu_heding.dart';
 import 'widgets/alredy_have_acc_widget.dart';
-import 'widgets/text_form.dart';
 
 class ScreenSignup extends StatelessWidget {
    ScreenSignup({super.key});

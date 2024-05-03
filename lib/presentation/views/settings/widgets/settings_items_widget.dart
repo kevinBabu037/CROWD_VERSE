@@ -16,9 +16,9 @@ class SettingsItemsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin:const EdgeInsets.symmetric(horizontal: 15,vertical: 10  ),
-      padding:const EdgeInsets.symmetric(horizontal: 20 ),
-      height: 50 , 
-      width: double.infinity,
+      padding:const EdgeInsets.symmetric(horizontal: 25 ),
+      height: 60  , 
+      width: double.infinity, 
       decoration: BoxDecoration(
        color: kClrWhite,
        borderRadius:BorderRadius.circular(10)  

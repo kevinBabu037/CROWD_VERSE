@@ -5,11 +5,13 @@ String? userName;
 String? userId;
 
 
+
   SearchAllUserModel({
-     this.name,
+    this.name,
     this.profilePhoto,
     this.userName,
-   this.userId,
+    this.userId,
+   
     });
 
 
@@ -20,7 +22,8 @@ String? userId;
         userName: json['UserName'],  
         name: json['Name'],
         profilePhoto: json['ProfilePhoto'], 
-        userId: json['UserID']
+        userId: json['UserID'],
+        
         ); 
     }
 }
