@@ -131,7 +131,7 @@ class ProfileDetailsBloc extends Bloc<ProfileDetailsEvent, ProfileDetailsState> 
 
      bool res=  await ProfileServices().deleteProfilrandCoverPic(event.type);
      
-    ProfileModel? model =await ProfileServices().getUserDetails();
+    ProfileModel? model = await ProfileServices().getUserDetails();
 
       if (res) {  
         emit(ProfileSuccessState(profile: model!)); 

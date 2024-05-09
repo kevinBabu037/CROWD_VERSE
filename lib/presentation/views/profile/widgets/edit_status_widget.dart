@@ -1,3 +1,4 @@
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/profile/profile_bloc/profile_details_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/login_signup_button.dart';
@@ -20,23 +21,19 @@ editStatusDialog(BuildContext context) {
                     content: SingleChildScrollView(
                       child: Form(
                         key: formKey,  
-                        child: Column( 
+                        child: Column(  
                           children: [  
                             const SizedBox(height: 16), 
-                            TextFormField(
-                              controller: statusController, 
-                              validator: (value) { 
-                                if (value!.length > 80) {
-                                  return "Please keep it within 80 characters.";
-                                }
-                                return null;
-                              }, 
-                              maxLines: 2,
-                              decoration:const  InputDecoration( 
-                                hintText: 'Add status', 
-                                border: OutlineInputBorder(),
-                              ),
-                            ), 
+                            kShowDialogTextField(
+                              statusController: statusController,
+                               hintTxt:'Add Status Message',
+                               validator: (value)  {  
+                                 if (value!.length > 60) {
+                                   return "Please keep it within 60 characters.";
+                                   }
+                                 return null;
+                               },  
+                              ), 
                              
                             kHeight40,   
                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,3 +68,4 @@ editStatusDialog(BuildContext context) {
     },
   );
 }
+

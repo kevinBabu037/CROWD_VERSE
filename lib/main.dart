@@ -1,8 +1,13 @@
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/selected_server_border.dart';
+import 'package:crowd_verse/presentation/views/home/cubit/server_expanded.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/edit_server/bloc/edit_server_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/search_server.dart/bloc/search_server_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_list_bloc/server_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/server_members/bloc/server_members_bloc.dart';
 import 'package:crowd_verse/presentation/views/messages/cubit/max_line_textform.dart';
 import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
@@ -36,6 +41,11 @@ class MyApp extends StatelessWidget {
     return 
      MultiBlocProvider(    
       providers: [ 
+       BlocProvider(create: (context) => ExpansionCubit(),),
+       BlocProvider(create: (context) => ChannelBloc(),),
+       BlocProvider(create: (context) => SearchServerBloc(),),
+       BlocProvider(create: (context) => EditServerBloc(),),
+       BlocProvider(create: (context) => ServerMembersBloc(),), 
        BlocProvider(create: (context) => ServerDetailsBloc(),), 
        BlocProvider(create: (context) => ServerBloc(),), 
        BlocProvider(create: (context) => ServerListCubit(),), 
@@ -47,8 +57,8 @@ class MyApp extends StatelessWidget {
        BlocProvider(create: (context) => FriendsBloc(),), 
        BlocProvider(create: (context) => FriendlyMessageBloc(),),
       ],
-      child: 
-      MaterialApp(
+      child:  
+      MaterialApp( 
         debugShowCheckedModeBanner: false, 
         theme:
          ThemeData( 
@@ -63,3 +73,4 @@ class MyApp extends StatelessWidget {
      
   }
 }
+

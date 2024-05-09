@@ -14,7 +14,10 @@ class EndPoint{
  static String uploadStatus ="/profile/status";
  static String deleteProfileAndCoverPic ="/profile/photoprofile";
  static String gellAllServer ="/server/userserver";
- static String getAllChannels ="/server/channel";
+ static String getAllServers ="/server/channel";
+ static String createServer ="/server";
+  static String uploadServerImage ="/server/image";
+
 
 
 } 

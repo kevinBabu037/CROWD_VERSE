@@ -117,3 +117,31 @@ String kdateConverter(String dateString) {
     return 'error';
   }
 }
+
+
+TextFormField kShowDialogTextField({
+  required TextEditingController statusController,
+   required String hintTxt,
+   String? Function(String?)? validator
+  }) {
+  return TextFormField(
+        controller: statusController, 
+        validator: validator,
+        maxLines: 2,  
+        decoration:  InputDecoration( 
+          hintText: hintTxt, 
+          border:const OutlineInputBorder(),
+        ),
+       );
+}
+
+
+String kServerNameFormter(String serverName) {
+  List<String> words = serverName.split(' ');
+  if (words.length >= 2) {
+    return words[0][0].toUpperCase()+words[1][0];
+  } else {
+    return serverName[0].toUpperCase()+serverName[1];
+  }
+}
+

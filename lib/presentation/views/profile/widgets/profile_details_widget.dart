@@ -46,7 +46,7 @@ class ProfileDetailsWidget extends StatelessWidget {
                state.profile.statusTxt!=null?  
                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,  
                 children: [ 
-                 Text(state.profile.statusTxt??'',style:const TextStyle(fontSize: 18)),   
+                 Flexible(child: Text(state.profile.statusTxt??'',style:const TextStyle(fontSize: 18))),   
                  IconButton(onPressed: (){ 
                   context.read<ProfileDetailsBloc>().add(DeleteStatusEvent());
                 },   

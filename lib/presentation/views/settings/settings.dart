@@ -1,64 +1,80 @@
 import 'package:crowd_verse/presentation/utils/core/color.dart';
-import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
+import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/views/profile/profile_bloc/profile_details_bloc.dart';
-import 'package:crowd_verse/presentation/views/settings/widgets/block_list.dart';
-import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
+import 'package:crowd_verse/presentation/views/settings/widgets/all_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../authentication/login/screen_login.dart';
-import 'widgets/settings_items_widget.dart';
+
 
 class ScreenSettings extends StatelessWidget {
   const ScreenSettings({super.key}); 
 
-  @override
+  @override 
   Widget build(BuildContext context) {
+    final screenHeight=MediaQuery.of(context).size.height; 
     return Scaffold(
-      backgroundColor: kClrProfileScafold,
-      appBar:
-       CustomAppBar(
-        icon: Icons.arrow_back, 
-        title: 'Settings',
-       onPressed: () {
-         Navigator.pop(context); 
-       },
-      ),
-      body: Column(
-        children: [
-          kHeight10,
-          
-          SettingsItemsWidget(
-              icon: Icons.block, 
-              title: "Block List",
-              onTap: () {
-                kNavigationPush(context,const BlockList());
-              },
-              ),
-      
-            GestureDetector(
-            onTap: () {
-              kShowDialog(
-              context: context, 
-              title: 'Log Out',
-              contentTxt: "Are you sure want to logout ?", 
-              actionBtn1Txt: "cancel", 
-              actionBtn2Txt: "Log Out", 
-              onPressed: () {
-              context.read<ProfileDetailsBloc>().add(LogoutEvent()); 
-              kNavigationPushRemoveUntil(context,const ScreenLogIn());
-               },
-              );            
-            },
-            child: SettingsItemsWidget(
-              icon: Icons.logout,
-              title: "Log Out",),
+      backgroundColor: kClrProfileScafold, 
+ 
+      body: Stack(
+        children: [ 
+          Container(
+            height:screenHeight*0.2+60,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage(kDefaultcoverPic),fit: BoxFit.cover)
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Row(
+              children: [
+               IconButton(onPressed: (){Navigator.pop(context);},
+                icon:const Icon(Icons.arrow_back)),
+               const Spacer(),
+               const Text('Settings',style: TextStyle(fontSize: 19 ),),
+               kWidth10
+              ],
+            ),
           ),
           
+          BlocBuilder<ProfileDetailsBloc, ProfileDetailsState>(
+            builder: (context, state) {
+              if (state is ProfileLoadingState) {
+                return const Center(child: CircularProgressIndicator(),);
+              }
+             if (state is ProfileSuccessState) { 
+                 
+              return Align(
+                      alignment: Alignment.topCenter, 
+                      child: Container(
+                         margin:const EdgeInsets.only(top:50 ), 
+                        height: 150 ,  
+                        child: Column(
+                             children: [
+                              
+                              CircleAvatar(
+                                radius: 40,
+                                backgroundImage: state.profile.profilepic!=null?NetworkImage(state.profile.profilepic!):AssetImage(kDefaultProfilePic)as ImageProvider
+                              ),
+                              kHeight10,
+                              Text(state.profile.name,style:const TextStyle(fontSize:17,fontWeight: FontWeight.bold,),),
+                              Text(state.profile.eMail!,style:const TextStyle(fontSize:17,))
+                             ],
+                        ),  
+                      ),
+                    );
+             }
+             return const SizedBox();
+            },
+          ), 
+          SettingsAllItemswidget(screenHeight: screenHeight),
          
         ],
       ),
     );
   }
 }
+
+
 

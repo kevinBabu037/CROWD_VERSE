@@ -16,4 +16,20 @@ final class ServerSuccessState extends ServerState {
 final class ServerEmptyState extends ServerState {}
 
 
+/////////////////////
+
+
+final class CreateServerSuccessState extends ServerState {}
+
+
+
+final class CreateServerErrorState extends ServerState {}
+
+
+final class JoinServerSuccessState extends ServerState {}
+
+final class JoinServerErroeState extends ServerState {}
+
+
+
 

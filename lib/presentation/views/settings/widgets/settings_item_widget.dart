@@ -2,8 +2,8 @@ import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class SettingsItemsWidget extends StatelessWidget {
-   SettingsItemsWidget({
+class SettingsItemWidget extends StatelessWidget {
+   SettingsItemWidget({
     super.key,
      this.onTap,
     required this.icon,

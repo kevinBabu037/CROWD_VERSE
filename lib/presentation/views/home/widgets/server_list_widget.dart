@@ -1,11 +1,13 @@
 
 import 'package:crowd_verse/data/models/server/all_server_model.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
-import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/selected_server_border.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_list_bloc/server_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/widgets/search_server_widget.dart';
+import 'package:crowd_verse/presentation/views/home/widgets/show_dialog_crete_server.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,24 +53,29 @@ class _ServerListWidgetState extends State<ServerListWidget> {
                      child: ListView.separated( 
                        itemBuilder: (context, index) {
                          ServerModel data = state.servers![index];  
-                         return InkWell( 
-                           onTap: () {                 
+                           String serverName = kServerNameFormter(data.name!);
+                         return GestureDetector( 
+                           onTap: () {                                           
                            context.read<ServerDetailsBloc>().add(ServerDetailsFechEvent(serverId:data.serverId!));    
                             context.read<ServerListCubit>().selectItem(index); 
                            },
-                           child: Container(
+                           child: Container(  
                              decoration: BoxDecoration( 
                                border: Border(
                                  left: BorderSide(
                                    width:  selectedIndex == index ? 6.0 : 0, 
                                    color: kClrBlack.withOpacity(0.6),  
-                                 ),
+                                 ), 
                                ), 
                              ), 
-                             child: CircleAvatar(
-                               backgroundImage:data.serverIcon!=null? NetworkImage(data.serverIcon!): AssetImage(kDefaultcoverPic)as ImageProvider,
-                               radius: 25,
-                             ),
+                             child: data.serverIcon!=null?CircleAvatar(
+                              radius: 25,
+                              backgroundImage:NetworkImage(data.serverIcon!),):
+                              CircleAvatar(
+                                backgroundColor: kClrBlue,
+                                radius: 25, 
+                                child: Text(serverName,style:const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: kClrWhite),), 
+                              ) 
                            ),
                          );
                        },
@@ -77,12 +84,23 @@ class _ServerListWidgetState extends State<ServerListWidget> {
 
                      ),
                    );
-                       }
+                       } 
                       return const Text('\n');
-                   },
+                   }, 
               ),
-              IconButton(
+              IconButton(      
                 onPressed: () {
+                  kNavigationPush(context,const SearchServerWidget());
+                }, 
+                icon: const Icon(Icons.diversity_2_outlined, size: 30,),
+              ),
+              kHeight10,
+              IconButton( 
+                onPressed: () {
+
+                showDialogToCreateServer( 
+                  context: context, 
+                  );
                 },
                 icon: const Icon(Icons.add, size: 30),
               ),

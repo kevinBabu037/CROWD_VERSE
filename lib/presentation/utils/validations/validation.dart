@@ -96,3 +96,16 @@ String calculateTimeDifference(String dateTimeString) {
 }
 
 
+//////////////
+
+
+
+String? kServerNameValidation( String? value) {     
+  if (value!.isNotEmpty&& value.trim().length > 20) { 
+      return "Please keep it within 20 characters.";
+      } 
+      if (value.isNotEmpty&&value.trim().length<3) {
+        return "Please keep  more than 3 characters";
+      }
+    return null; 
+  }

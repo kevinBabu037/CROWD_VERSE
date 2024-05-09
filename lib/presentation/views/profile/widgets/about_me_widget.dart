@@ -47,10 +47,10 @@ Widget build(BuildContext context) {
             } 
             return const SizedBox(); 
           },
-        ),
+        ), 
         kHeight10,
         const Text(
-          'Croud Verse Member Since', 
+          'Crowd Verse Member Since', 
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         BlocBuilder<ProfileDetailsBloc, ProfileDetailsState>(
