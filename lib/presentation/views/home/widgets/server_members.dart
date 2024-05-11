@@ -1,5 +1,5 @@
 import 'package:crowd_verse/presentation/utils/core/color.dart';
-import 'package:crowd_verse/presentation/utils/core/style.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_members/bloc/server_members_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class ServerMembers extends StatelessWidget {
         child: BlocBuilder<ServerMembersBloc, ServerMembersState>(
           builder: (context, state) {
             if (state is ServerMembersLoadingState) {
-             return  Center(child: kCircularIndicator,);
+             return  Center(child: kCircularProgressIndicator,);
             } 
             if (state is ServerMembersSuccessState) {
               return ListView.separated(

@@ -54,12 +54,12 @@ class ScreenForgotPassword extends StatelessWidget {
                         },
                         builder: (context, state) {
                           if (state is  ForgotPassMailLoadingState) { 
-                         return  const Stack(
+                         return   Stack(
                               children: [
-                                LoginSignUpButtonWidget(
+                               const LoginSignUpButtonWidget(
                                 text: 'Next',
                                 ),
-                                Center(child: CircularProgressIndicator(),)
+                                Center(child: kCircularProgressIndicator,)
                               ],
                             );
                           }

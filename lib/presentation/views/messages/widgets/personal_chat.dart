@@ -4,6 +4,7 @@ import 'package:crowd_verse/data/models/friends/friends_model.dart';
 import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
@@ -26,7 +27,7 @@ class PersonalChat extends StatefulWidget {
   State<PersonalChat> createState() => _PersonalChatState();
 }
  FriendlyChatService service =FriendlyChatService();
- TextEditingController messageController =TextEditingController();
+ TextEditingController messageController = TextEditingController();
 
   
 class _PersonalChatState extends State<PersonalChat> {
@@ -73,7 +74,7 @@ class _PersonalChatState extends State<PersonalChat> {
            
               builder: (context, state) { 
                 if (state is FriendlyMessageLoaddingState) {
-                return  const   Center(child: CircularProgressIndicator(),);
+                return    Center(child: kCircularProgressIndicator,);
                 }
               if (state is FriendlyMessageSuccessState) { 
                  WidgetsBinding.instance.addPostFrameCallback((_) { 
@@ -98,7 +99,7 @@ class _PersonalChatState extends State<PersonalChat> {
               return const SizedBox(); 
               },
             ), 
-          ), 
+          ),  
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ChatTextFormField(
@@ -117,7 +118,7 @@ class _PersonalChatState extends State<PersonalChat> {
                     messageController.clear();  
                    }
               }, 
-              scrollController: scrollController
+              // scrollController: scrollController
               )        
           )
         ],

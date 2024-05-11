@@ -23,7 +23,6 @@ class ChatTextOtherstWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String time = kMessageTimeConverter(chat.time); 
  
-    //  String date = kdateConverter(chat.time);
 
 
     return Column(

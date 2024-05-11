@@ -106,12 +106,12 @@ class ScreenSignup extends StatelessWidget {
 
   builder: (context, state) {
     if (state is SignUpLoadingState) {
-       return const Stack(
+       return  Stack(
          children: [
-           LoginSignUpButtonWidget(
+          const LoginSignUpButtonWidget(
             text: 'Create Account',
             ),
-          Center(child:  CircularProgressIndicator())
+          Center(child:  kCircularProgressIndicator)
          ],
        );
     }

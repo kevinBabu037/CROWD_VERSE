@@ -19,25 +19,14 @@ class ScreenSettings extends StatelessWidget {
       body: Stack(
         children: [ 
           Container(
-            height:screenHeight*0.2+60,
+            height:screenHeight*0.3+30,
             width: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(image: AssetImage(kDefaultcoverPic),fit: BoxFit.cover)
             ),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Row(
-              children: [
-               IconButton(onPressed: (){Navigator.pop(context);},
-                icon:const Icon(Icons.arrow_back)),
-               const Spacer(),
-               const Text('Settings',style: TextStyle(fontSize: 19 ),),
-               kWidth10
-              ],
-            ),
-          ),
-          
+         
+           
           BlocBuilder<ProfileDetailsBloc, ProfileDetailsState>(
             builder: (context, state) {
               if (state is ProfileLoadingState) {
@@ -45,30 +34,34 @@ class ScreenSettings extends StatelessWidget {
               }
              if (state is ProfileSuccessState) { 
                  
-              return Align(
-                      alignment: Alignment.topCenter, 
-                      child: Container(
-                         margin:const EdgeInsets.only(top:50 ), 
-                        height: 150 ,  
-                        child: Column(
-                             children: [
-                              
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundImage: state.profile.profilepic!=null?NetworkImage(state.profile.profilepic!):AssetImage(kDefaultProfilePic)as ImageProvider
-                              ),
-                              kHeight10,
-                              Text(state.profile.name,style:const TextStyle(fontSize:17,fontWeight: FontWeight.bold,),),
-                              Text(state.profile.eMail!,style:const TextStyle(fontSize:17,))
-                             ],
-                        ),  
+              return Container(
+                 margin:const EdgeInsets.only(top:50 ),                         
+                child: Column( 
+                     children: [
+                      Row(
+                            children: [
+                             IconButton(onPressed: (){Navigator.pop(context);},
+                              icon:const Icon(Icons.arrow_back)),
+                             const Spacer(),
+                             const Text('Settings',style: TextStyle(fontSize: 19 ),),
+                             kWidth10
+                            ],
+                          ),
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: state.profile.profilepic!=null?NetworkImage(state.profile.profilepic!):AssetImage(kDefaultProfilePic)as ImageProvider
                       ),
-                    );
+                      kHeight10,
+                      Text(state.profile.name,style:const TextStyle(fontSize:17,fontWeight: FontWeight.bold,),),
+                      Text(state.profile.eMail!,style:const TextStyle(fontSize:17,))
+                     ],
+                ),  
+              );
              }
              return const SizedBox();
             },
           ), 
-          SettingsAllItemswidget(screenHeight: screenHeight),
+           SettingsAllItemswidget(screenHeight: screenHeight),
          
         ],
       ),

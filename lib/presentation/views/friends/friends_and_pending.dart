@@ -30,8 +30,8 @@ class FriendsAndPending extends StatelessWidget {
             centerTitle: true,
             title: const Text('Friends',style: kAppBarHedingStyke),           
               bottom: TabBar(
-                labelColor: kClrBlue,
-                unselectedLabelColor: kClrBlack, 
+                labelColor: kClrBlack,
+                unselectedLabelColor: kClrBlue, 
                 labelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(30)

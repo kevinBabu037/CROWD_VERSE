@@ -41,17 +41,18 @@ class _ServerListWidgetState extends State<ServerListWidget> {
           width: widget.screenSize.width * 0.2,
           height: double.infinity, 
           color: kClrLiteBlue, 
-          child: Column(
+          child: Column( 
             children: [ 
               BlocBuilder<ServerBloc, ServerState>(
                 builder: (context, state) {
                   if (state is ServerLoadingState) {
-                    const Center(child: CircularProgressIndicator(),); 
+                     Center(child: kCircularProgressIndicator,); 
                   }
-               if (state is ServerSuccessState) {
+               if (state is ServerSuccessState) { 
                    return Expanded(
                      child: ListView.separated( 
                        itemBuilder: (context, index) {
+                        
                          ServerModel data = state.servers![index];  
                            String serverName = kServerNameFormter(data.name!);
                          return GestureDetector( 
@@ -77,7 +78,7 @@ class _ServerListWidgetState extends State<ServerListWidget> {
                                 child: Text(serverName,style:const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: kClrWhite),), 
                               ) 
                            ),
-                         );
+                         ); 
                        },
                        itemCount:state.servers!.length, 
                        separatorBuilder: (context, index) => kHeight15,

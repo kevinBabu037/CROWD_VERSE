@@ -1,8 +1,10 @@
 
 import 'package:crowd_verse/data/models/server/all_channels.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/server_expanded.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/widgets/channel_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +21,7 @@ class AllChannelsListWidget extends StatelessWidget {
     return BlocBuilder<ChannelBloc, ChannelState>(
       builder: (context, state) {
         if (state is ChannelLoadingState) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: kCircularProgressIndicator);
         }
         if (state is ChannelSuccessState) {
           return Expanded(
@@ -45,8 +47,9 @@ class AllChannelsListWidget extends StatelessWidget {
                           itemBuilder: (context, index) {
                             final chanel = data.channels[index]; 
                             return ListTile(
-                              onTap: () {                              
-                              },
+                              onTap: () {  
+                               kNavigationPush(context, ChannelChat(chanel: chanel,));                             
+                              }, 
                               title: Text("  # ${chanel.name}"),
                             );
                           },

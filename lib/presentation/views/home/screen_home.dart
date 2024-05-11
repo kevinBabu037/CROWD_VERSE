@@ -11,7 +11,7 @@ class ScreenHome extends StatelessWidget {
   Widget build(BuildContext context) { 
     Size screenSize = MediaQuery.of(context).size; 
     return  Scaffold(
-       backgroundColor:kClrProfileScafold ,
+       backgroundColor:kClrLiteBlue ,
      body: Row(
       children: [
         ServerListWidget(screenSize: screenSize), 

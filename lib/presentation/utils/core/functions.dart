@@ -145,3 +145,37 @@ String kServerNameFormter(String serverName) {
   }
 }
 
+Widget kCircularProgressIndicator = const CircularProgressIndicator();
+
+
+ 
+
+String kChannelMessageFormater(String dateTimeString) {
+  // Remove the "+0000 UTC" part from the string
+  String trimmedDateTimeString = dateTimeString.split(".")[0].trim();
+
+  // Parse the string into a DateTime object
+  DateTime dateTime = DateTime.parse(trimmedDateTimeString);
+
+  // Get the current date and time
+  DateTime now = DateTime.now();  
+     
+  // Check if the date is today
+  if (dateTime.year == now.year && dateTime.month == now.month && dateTime.day == now.day) {
+    // Return "Today" and formatted time if the message was sent today
+    String formattedDateTime = "Today ${DateFormat('hh:mm a').format(dateTime)}"; // Format time with AM/PM
+    return formattedDateTime;
+  }
+
+  // Check if the date is yesterday
+  DateTime yesterday = now.subtract(const Duration(days: 1));
+  if (dateTime.year == yesterday.year && dateTime.month == yesterday.month && dateTime.day == yesterday.day) {
+    // Return "Yesterday" and formatted time if the message was sent yesterday
+    String formattedDateTime = "Yesterday ${DateFormat('hh:mm a').format(dateTime)}"; // Format time with AM/PM
+    return formattedDateTime;
+  }
+
+  // Format the DateTime object for display
+  String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTime); // Format date
+  return formattedDateTime; // Return formatted date
+}

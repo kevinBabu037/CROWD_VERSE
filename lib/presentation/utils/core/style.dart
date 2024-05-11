@@ -7,4 +7,3 @@ const TextStyle kLoginSingnupHeding=TextStyle(fontSize: 35,fontWeight: FontWeigh
 
   const TextStyle kProfileNameStyle =   TextStyle(fontWeight: FontWeight.bold,fontSize: 27);
 
-  Widget kCircularIndicator = const CircularProgressIndicator();

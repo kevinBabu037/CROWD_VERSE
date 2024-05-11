@@ -1,5 +1,6 @@
 
 import 'package:crowd_verse/presentation/utils/core/color.dart';
+import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
@@ -18,6 +19,7 @@ class ChannelsAndDetailsWidget extends StatelessWidget {
 
   final Map<String, bool> expansionStates = {}; 
 
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +36,7 @@ class ChannelsAndDetailsWidget extends StatelessWidget {
           BlocBuilder<ServerDetailsBloc, ServerDetailsState>(
             builder: (context, state) {
               if (state is ServerDetailsLoadingState) {
-                return const Center(child: CircularProgressIndicator());
+                return  Center(child: kCircularProgressIndicator);
               }
               if (state is ServerDetailsSuccessState) {
                 context.read<ChannelBloc>().add(FechAllChannelsEvent(serverID: state.server.serverId!));

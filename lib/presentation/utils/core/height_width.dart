@@ -8,7 +8,10 @@ Widget kHeight20=const SizedBox(height: 20,);
 Widget kHeight30=const SizedBox(height: 30,);
 Widget kHeight40=const SizedBox(height: 40,);
 Widget kHeight50=const SizedBox(height: 50,);
-Widget kHeight60=const SizedBox(height: 60,);    
+Widget kHeight60=const SizedBox(height: 60,); 
+Widget kHeight70=const SizedBox(height: 70,);
+Widget kHeight80=const SizedBox(height: 80,);    
+
 
 //////////////////////
 

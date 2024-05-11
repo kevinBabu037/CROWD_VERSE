@@ -1,7 +1,10 @@
 import 'package:crowd_verse/data/models/server/server_details.dart';
+
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/height_width.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_members/bloc/server_members_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/widgets/all_categoryes.dart';
 import 'package:crowd_verse/presentation/views/home/widgets/edit_server_details.dart';
 import 'package:crowd_verse/presentation/views/home/widgets/server_members.dart';
 import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
@@ -18,6 +21,9 @@ bottomSheetServerSettings({
 
       context: context,  
       builder: (BuildContext context) {  
+
+        
+        
         return SingleChildScrollView(
           child: Container(   
             decoration: BoxDecoration(   
@@ -45,6 +51,15 @@ bottomSheetServerSettings({
                 title: 'Edit Server',   
                 onTap: () { 
                   editServerDetails(context: context,serverId: serverId); 
+                  
+                },
+                ), 
+
+               SettingsItemWidget( 
+                icon: Icons.add,   
+                title: 'Create Channel',     
+                onTap: () { 
+                  kNavigationPush(context, AllCategorySWidget(serverID: serverId,));
                   
                 },
                 ),
@@ -114,7 +129,7 @@ bottomSheetServerSettings({
 
                   },
                 ),
-                 
+                kHeight15, 
               
               ],
             ),

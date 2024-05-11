@@ -2,8 +2,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:crowd_verse/data/models/server/all_categorys.dart';
 import 'package:crowd_verse/data/models/server/all_channels.dart';
 import 'package:crowd_verse/data/models/server/all_server_model.dart';
+import 'package:crowd_verse/data/models/server/channel_message.dart';
 import 'package:crowd_verse/data/models/server/search_server.dart';
 import 'package:crowd_verse/data/models/server/server_details.dart';
 import 'package:crowd_verse/data/models/server/server_members.dart';
@@ -349,8 +351,126 @@ class ServerService{
        }
 
 
+     Future<List<CategoreyModel>?>getAllCategorys(String serverID)async{ 
+        final url =Uri.parse("${EndPoint.baseUrl}/server/category?serverID=$serverID");     
+        final accessToken = await storage.readSecureData('AccessToken'); 
+      try {
+
+      final respose = await http.get(
+        url, 
+        headers: {   
+          "AccessToken":accessToken,  
+        },
+        );
+         
+        log(" 🚌🚌🚌${respose.body}");
+         if (respose.statusCode==200) {
+            final jsonData = jsonDecode(respose.body);
+        List<dynamic> friendsJsonList = jsonData['result']['Data'];  
+ 
+          List<CategoreyModel> category = friendsJsonList.map((json)  { 
+           return CategoreyModel.fromJson(json);  
+          }).toList(); 
+          return category;
+ 
+        } 
+ 
+      } catch (e) {
+        log(e.toString());
+      }
+       return null;
+   }
+   
+     Future<bool>createCategory(String serverId,String categoryName)async{
+         final url =Uri.parse("${EndPoint.baseUrl}/server/category");     
+         final accessToken = await storage.readSecureData('AccessToken'); 
+
+        final body = {
+          "ServerID": serverId,
+         "CategoryName": categoryName
+        };
+          try {
+             final response = await http.post( 
+              url,
+              headers: {
+                 "AccessToken":accessToken,
+                 "Content-Type":"application/json",
+              },
+              body: jsonEncode(body)
+              );
+
+              log("💥💥💥${response.body}");
+            return response.statusCode==200;
+
+          } catch (e) {
+            log(e.toString());
+          }
+          return false;
+      }
 
 
+      
+   
+     Future<bool>createChannel({required String serverId,required String channelName,required String catogoryID })async{
+         final url =Uri.parse("${EndPoint.baseUrl}/server/channel");     
+         final accessToken = await storage.readSecureData('AccessToken'); 
+
+        final body = {
+          "channelName": channelName,
+          "serverID": serverId,
+          "categoryID": catogoryID,
+          "type": "text"
+        };
+          try {
+             final response = await http.post( 
+              url,
+              headers: {
+                 "AccessToken":accessToken,
+                 "Content-Type":"application/json",
+              },
+              body: jsonEncode(body)
+              );
+
+              log("🎆🎆🎆${response.body}");
+            return response.statusCode==200;
+
+          } catch (e) {
+            log(e.toString());
+          }
+          return false;
+      }
+
+    Future<List<ChannelChatModel>?> getChannelMessages(String channelID)async{
+         final url =Uri.parse("${EndPoint.baseUrl}/server/message?ChannelID=$channelID&Page=1&Limit=50");     
+         final accessToken = await storage.readSecureData('AccessToken'); 
+
+        try { 
+           
+           final response = await http.get(
+            url,
+            headers: {
+              "AccessToken":accessToken,
+              "Content-Type":"application/json",
+            }
+           );
+
+           log("💚💚💚💚${response.body}");
+
+            if (response.statusCode==200) {
+            final jsonData = jsonDecode(response.body);
+        List<dynamic> friendsJsonList = jsonData['result']['messages'];  
+ 
+          List<ChannelChatModel> messeges = friendsJsonList.map((json)  { 
+           return ChannelChatModel.fromJson(json);  
+          }).toList(); 
+          return messeges.reversed.toList(); 
+        }
+        } catch (e) {
+           log(e.toString());
+        }
+        return null;
+
+     }
 
      
   }

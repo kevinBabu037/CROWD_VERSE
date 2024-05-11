@@ -2,7 +2,7 @@ import 'package:crowd_verse/data/repositories/server/server_service.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/search_server.dart/bloc/search_server_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/search_server/bloc/search_server_bloc.dart';
 import 'package:crowd_verse/presentation/widgets/costum_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

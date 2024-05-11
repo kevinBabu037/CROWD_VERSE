@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsAllItemswidget extends StatelessWidget {
   const SettingsAllItemswidget({
-    super.key,
+    super.key, 
     required this.screenHeight,
   });
 
@@ -25,14 +25,14 @@ class SettingsAllItemswidget extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: Container(
         width: double.infinity,
-        height: screenHeight*0.7+15, 
+        height: screenHeight*0.7, 
         decoration:const BoxDecoration(
           color: kClrLiteBlue,
           borderRadius: BorderRadius.only(topLeft:Radius.circular(20),topRight: Radius.circular(20))
         ),
          child: Column(
           children: [
-            kHeight15,
+            kHeight20,
             SettingsItemWidget(
                 icon:Icons.message_outlined , 
                 title: 'Messages',

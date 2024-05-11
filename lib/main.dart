@@ -2,9 +2,11 @@ import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/lo
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/selected_server_border.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/server_expanded.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/category_bloc/bloc/category_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/channel_chat/bloc/channel_chat_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/edit_server/bloc/edit_server_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/search_server.dart/bloc/search_server_bloc.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/search_server/bloc/search_server_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_list_bloc/server_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_members/bloc/server_members_bloc.dart';
@@ -41,6 +43,8 @@ class MyApp extends StatelessWidget {
     return 
      MultiBlocProvider(    
       providers: [ 
+       BlocProvider(create: (context) => ChannelChatBloc(),),
+       BlocProvider(create: (context) => CategoryBloc(),),
        BlocProvider(create: (context) => ExpansionCubit(),),
        BlocProvider(create: (context) => ChannelBloc(),),
        BlocProvider(create: (context) => SearchServerBloc(),),
@@ -49,7 +53,7 @@ class MyApp extends StatelessWidget {
        BlocProvider(create: (context) => ServerDetailsBloc(),), 
        BlocProvider(create: (context) => ServerBloc(),), 
        BlocProvider(create: (context) => ServerListCubit(),), 
-       BlocProvider(create: (context) => NavIndex(),), 
+       BlocProvider(create: (context) => NavIndex(),),  
        BlocProvider(create: (context) => MaxLineCubit(),),
        BlocProvider(create: (context) => ProfileDetailsBloc(),), 
        BlocProvider(create: (context) => SignupBloc(),), 

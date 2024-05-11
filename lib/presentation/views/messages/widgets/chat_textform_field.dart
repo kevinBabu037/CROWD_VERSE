@@ -8,11 +8,11 @@ class ChatTextFormField extends StatefulWidget {
     super.key,
     required this.controller,
     required this.onPressed,
-    required this.scrollController
+    // required this.scrollController
     });
  final void Function()? onPressed;
  final TextEditingController? controller;
-final ScrollController scrollController;
+// final ScrollController scrollController;
 
   @override
   State<ChatTextFormField> createState() => _ChatTextFormFieldState();

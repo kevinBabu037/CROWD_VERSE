@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'package:crowd_verse/data/models/server/channel_message.dart';
 import 'package:crowd_verse/presentation/utils/core/endpoints.dart';
+import 'package:crowd_verse/presentation/views/home/server_bloc/channel_chat/bloc/channel_chat_bloc.dart';
 import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,7 +56,7 @@ class FriendlyChatService {
        return null;    
    }
 
-
+ 
 
    Future<String>getUserIdByToken()async{
    final url =Uri.parse("${EndPoint.baseUrl}/token");   
@@ -83,7 +85,7 @@ class FriendlyChatService {
        } 
        return '';
    }
-
+ 
   /////////////////////////
   
 
@@ -97,7 +99,7 @@ class FriendlyChatService {
           .setPath('/server')
           .setTransports(['websocket'])
           .setExtraHeaders({'AccessToken': accessToken})
-          .disableAutoConnect()  
+          .disableAutoConnect()   
           .build(),
     );
     socket.connect();
@@ -106,6 +108,7 @@ class FriendlyChatService {
     socket.onConnectError((data) => debugPrint('Connect error: $data'));
     socket.onDisconnect((data) => debugPrint('Socket disconnected'));
     FriendlyChatModel? chat;
+    
 
     socket.on('receive friendly chat', (data) {
       chat = FriendlyChatModel.fromJson(data);
@@ -115,6 +118,18 @@ class FriendlyChatService {
         }
         
      });
+      socket.on('broadcast server chat', (data) { 
+
+       ChannelChatModel chanelChat  = ChannelChatModel.fromJson(data);
+         
+        log('server chat🍎🍎🍎🍎:$data');  
+
+        context!.read<ChannelChatBloc>().add(ReciveChannelMessageEvent(chat: chanelChat));
+        
+        
+     });
+     
+
      
   } 
 
