@@ -138,10 +138,14 @@ TextFormField kShowDialogTextField({
 
 String kServerNameFormter(String serverName) {
   List<String> words = serverName.split(' ');
-  if (words.length >= 2) {
+  try {
+    if (words.length >= 2) {
     return words[0][0].toUpperCase()+words[1][0];
   } else {
     return serverName[0].toUpperCase()+serverName[1];
+  }
+  } catch (e) {
+    return "NN";
   }
 }
 

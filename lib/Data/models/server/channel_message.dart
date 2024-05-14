@@ -21,9 +21,9 @@ class ChannelChatModel{
     factory ChannelChatModel.fromJson(Map<String,dynamic> json){
       return ChannelChatModel(
         content: json['Content'],    
-        dateTime: json["TimeStamp"], 
-        userName: json['UserName'], 
-        userProfilePic: json['UserProfilePhoto'],
+        dateTime: json["TimeStamp"],  
+        userName: json['UserName'],  
+        userProfilePic: json['UserProfilePhoto'], 
         userID: json['UserID'], 
         serverID: json['ServerID'],
         channelID: json['ChannelID']

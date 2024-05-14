@@ -8,7 +8,7 @@ class ServerDetailsModel{
   ServerDetailsModel({
     required this.serverId, 
      this.serverIcon,
-    required this.name,
+     required this.name,
      this.discription,
      this.onlineUsers
     });

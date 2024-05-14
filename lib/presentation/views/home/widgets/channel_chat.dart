@@ -1,4 +1,6 @@
+
 import 'package:crowd_verse/data/models/server/all_channels.dart';
+import 'package:crowd_verse/data/repositories/flriedly_chat/friendly_chat.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/height_width.dart';
@@ -10,13 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChannelChat extends StatelessWidget {
-  const ChannelChat({super.key, required this.chanel});
-  final Channel chanel;
-
+   ChannelChat({super.key, required this.chanel, required this.serverID});
+  final Channel chanel; 
+  final String serverID; 
+ final FriendlyChatService service = FriendlyChatService();
+  final TextEditingController msgConttroller = TextEditingController();
+ final  ScrollController scrollController = ScrollController(); 
   @override 
   Widget build(BuildContext context) {
     context.read<ChannelChatBloc>().add(FechAllChannelMessages(chanelID: chanel.channelId));
-     final TextEditingController msgConttroller = TextEditingController();
+    
     return Scaffold( 
       backgroundColor: kClrProfileScafold,
       appBar:CustomAppBar(
@@ -30,13 +35,17 @@ class ChannelChat extends StatelessWidget {
               return   Center(child: kCircularProgressIndicator,);
             }
             if (state is ChannelChatSuccussState) {
+              WidgetsBinding.instance.addPostFrameCallback((_) { 
+                  scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                  });
               return Column(
                 children: [
                   Expanded(
                     child: ListView.separated( 
+                      controller: scrollController,
                       itemCount: state.chat.length, 
                       separatorBuilder: (context, index) => kHeight10, 
-                      itemBuilder: (context, index) {
+                      itemBuilder: (context, index) { 
                         final data = state.chat[index];
                         String dateTime = kChannelMessageFormater(data.dateTime!);
                       return ListTile(
@@ -70,7 +79,7 @@ class ChannelChat extends StatelessWidget {
                     },),
                   ),
                   kHeight80,
-                ],
+                ], 
               );
             }
             if (state is ChannelChatEmptyState) {
@@ -81,12 +90,14 @@ class ChannelChat extends StatelessWidget {
           },
         ),
         bottomSheet:   Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ChatTextFormField(
+              padding: const EdgeInsets.all(8.0), 
+              child: ChatTextFormField( 
                 controller: msgConttroller,
-                 onPressed: (){
+                 onPressed: ()async{
                    if (msgConttroller.text.trim().isNotEmpty){
-                    
+                   await service.sendMessageInChannel(channelID: chanel.channelId, serverID: serverID, message: msgConttroller.text);
+                  scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                   msgConttroller.clear();
                    }
                  },
                  ),

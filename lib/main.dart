@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
 
     return 
      MultiBlocProvider(    
-      providers: [ 
+      providers: [  
        BlocProvider(create: (context) => ChannelChatBloc(),),
        BlocProvider(create: (context) => CategoryBloc(),),
        BlocProvider(create: (context) => ExpansionCubit(),),

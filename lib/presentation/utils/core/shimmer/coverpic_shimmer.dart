@@ -19,3 +19,5 @@ class ShimmerCoverPicLoading extends StatelessWidget {
   }
 }
  
+
+ 

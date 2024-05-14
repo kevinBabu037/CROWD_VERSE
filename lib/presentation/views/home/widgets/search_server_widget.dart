@@ -79,7 +79,7 @@ class SearchServerWidget extends StatelessWidget {
                                       ),
                                       child:const Center(child:  Text("Join")),
                                     ),
-                              ), 
+                              ),  
                               );
                           }, 
                           separatorBuilder: (context, index) =>const Divider(thickness:0.3 ,),  
@@ -89,7 +89,7 @@ class SearchServerWidget extends StatelessWidget {
                   if (state is SearchServerEmptyState) {
                    return  SizedBox(height: 200,width: 200, child: Lottie.network('https://lottie.host/6826a964-4a31-4504-b25c-8209c00869d4/8D2Vx9VYvn.json'));
                   }
-                  return const SizedBox();
+                  return const SizedBox(child: Text('data'),);
                 },
               ),
             ),

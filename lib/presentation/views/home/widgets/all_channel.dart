@@ -2,6 +2,7 @@
 import 'package:crowd_verse/data/models/server/all_channels.dart';
 import 'package:crowd_verse/presentation/utils/core/color.dart';
 import 'package:crowd_verse/presentation/utils/core/functions.dart';
+import 'package:crowd_verse/presentation/utils/core/shimmer/shimmer_friends_list.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/server_expanded.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/widgets/channel_chat.dart';
@@ -9,25 +10,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AllChannelsListWidget extends StatelessWidget {
-  const AllChannelsListWidget({
+  const AllChannelsListWidget({ 
     super.key,
     required this.expansionStates,
+   required this.serverID
   });
-
+  final String serverID;
   final Map<String, bool> expansionStates;
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return BlocBuilder<ChannelBloc, ChannelState>(
       builder: (context, state) {
         if (state is ChannelLoadingState) {
-          return  Center(child: kCircularProgressIndicator);
+          return const Expanded(child: ShimmerFriendsListTile());
         }
         if (state is ChannelSuccessState) {
           return Expanded(
             child: ListView.builder(
               itemCount: state.channels.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index){
                 ChannelModel data = state.channels[index];
                 bool isExpanded = expansionStates[data.name] ?? false;
                 return Column( 
@@ -38,7 +40,7 @@ class AllChannelsListWidget extends StatelessWidget {
                       onExpansionChanged: (value) {
                        context.read<ExpansionCubit>().setExpansionState(data.name, value);
                       },
-                       initiallyExpanded: isExpanded,
+                       initiallyExpanded: isExpanded, 
                       children: [
                         ListView.builder(
                            shrinkWrap: true, 
@@ -48,7 +50,7 @@ class AllChannelsListWidget extends StatelessWidget {
                             final chanel = data.channels[index]; 
                             return ListTile(
                               onTap: () {  
-                               kNavigationPush(context, ChannelChat(chanel: chanel,));                             
+                               kNavigationPush(context, ChannelChat(chanel: chanel,serverID: serverID,));                             
                               }, 
                               title: Text("  # ${chanel.name}"),
                             );

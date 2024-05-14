@@ -151,6 +151,28 @@ class FriendlyChatService {
      );
      
   }
+
+
+ Future< void> sendMessageInChannel({required String channelID,required String serverID,required String message})async{
+     String userId = await storage.readSecureData('UserID');
+     log("channel id --->$channelID");
+     log("server id --->$serverID");
+     log(" message --->$message");
+
+    final json = {
+     "UserID": int.parse(userId),
+     "ChannelID": int.parse(channelID),
+     "ServerID": int.parse(serverID),
+     "content": message,
+     "type": "text"
+    };
+
+    socket.emit(
+      'server chat',
+      jsonEncode(json)
+      );
+
+  }
  
 }
 

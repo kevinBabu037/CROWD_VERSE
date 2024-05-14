@@ -1,7 +1,7 @@
 
 import 'package:crowd_verse/presentation/utils/core/color.dart';
-import 'package:crowd_verse/presentation/utils/core/functions.dart';
 import 'package:crowd_verse/presentation/utils/core/images.dart';
+import 'package:crowd_verse/presentation/utils/core/shimmer/coverpic_shimmer.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/widgets/all_channel.dart';
@@ -36,7 +36,7 @@ class ChannelsAndDetailsWidget extends StatelessWidget {
           BlocBuilder<ServerDetailsBloc, ServerDetailsState>(
             builder: (context, state) {
               if (state is ServerDetailsLoadingState) {
-                return  Center(child: kCircularProgressIndicator);
+                return const Center(child: ShimmerCoverPicLoading(height: 200,));
               }
               if (state is ServerDetailsSuccessState) {
                 context.read<ChannelBloc>().add(FechAllChannelsEvent(serverID: state.server.serverId!));
@@ -94,7 +94,14 @@ class ChannelsAndDetailsWidget extends StatelessWidget {
               );
             },
           ),
-          AllChannelsListWidget(expansionStates: expansionStates),
+          BlocBuilder<ServerDetailsBloc, ServerDetailsState>(
+            builder: (context, state) {
+             if (state is ServerDetailsSuccessState) {
+                return AllChannelsListWidget(expansionStates: expansionStates,serverID:state.server.serverId!,);
+             }
+             return const Center(child:  SizedBox(child: Text('You can select a Server',style: TextStyle(fontSize: 18,color: kClrGreyDark),),));
+            },
+          ),
         ],
       ),
     );

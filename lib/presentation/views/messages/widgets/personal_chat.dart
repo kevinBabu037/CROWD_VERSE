@@ -34,7 +34,7 @@ class _PersonalChatState extends State<PersonalChat> {
    
    ScrollController scrollController = ScrollController(); 
   
-  @override
+  @override 
   void initState() {
     super.initState();
    context.read<FriendlyMessageBloc>().add(GetAllMessagesEvent(userId:widget.data.userId!));
@@ -101,7 +101,7 @@ class _PersonalChatState extends State<PersonalChat> {
             ), 
           ),  
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0), 
             child: ChatTextFormField(
               controller: messageController, 
               onPressed: ()async{

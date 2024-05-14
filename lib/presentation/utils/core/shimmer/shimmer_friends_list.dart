@@ -7,7 +7,7 @@ class ShimmerFriendsListTile extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
+    return Shimmer.fromColors( 
       baseColor: Colors.white, 
       highlightColor: Colors.grey[300]!,     
       child: ListView.builder(
