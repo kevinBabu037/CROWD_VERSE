@@ -183,3 +183,52 @@ String kChannelMessageFormater(String dateTimeString) {
   String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTime); // Format date
   return formattedDateTime; // Return formatted date
 }
+
+
+String formatDate(String dateTimeString) {
+    try {
+      // Remove the timezone abbreviation (e.g., "IST")
+      dateTimeString = dateTimeString.replaceFirst(RegExp(r' [A-Z]{3}$'), '');
+      
+      // Parse the string into a DateTime object
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      
+      // Get current time
+      DateTime now = DateTime.now();
+      
+      // Check if the date is today, yesterday, or another day
+      if (dateTime.year == now.year && dateTime.month == now.month && dateTime.day == now.day) {
+        return 'Today';
+      } else if (dateTime.year == now.year && dateTime.month == now.month && dateTime.day == now.day - 1) {
+        return 'Yesterday';
+      } else {
+        // Define the output format
+        DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+        // Format the DateTime object into a readable string
+        return outputFormat.format(dateTime);
+      }
+    } catch (e) {
+      return "no date";
+    }
+  }
+
+
+
+  // Function to format date
+  String chatDateHeader(String dateTimeString) {
+    try {
+      // Remove the timezone abbreviation (e.g., "UTC")
+      dateTimeString = dateTimeString.replaceFirst(RegExp(r' [A-Z]{3}$'), '');
+
+      // Parse the string into a DateTime object
+      DateTime dateTime = DateTime.parse(dateTimeString);
+
+      // Define the output format
+      DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+
+      // Format the DateTime object into a readable string
+      return outputFormat.format(dateTime);
+    } catch (e) {
+      return "Invalid date";
+    }
+  }

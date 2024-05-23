@@ -1,3 +1,4 @@
+
 import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
 import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
 import 'package:crowd_verse/presentation/views/home/cubit/selected_server_border.dart';
@@ -22,20 +23,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'presentation/views/profile/profile_bloc/profile_details_bloc.dart';
  
- 
-
 
 void main()async {
    WidgetsFlutterBinding.ensureInitialized();
    
-    bool isLoggedIn = await SharedPreferenses.getBoolValue() ?? false;
-  runApp( MyApp(isLogin:isLoggedIn));
+    // bool isLoggedIn = await SharedPreferenses.getBoolValue() ?? false;
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget { 
-  const MyApp({super.key,required this.isLogin});
+  const MyApp({super.key,
+  // required this.isLogin
+  });
   
-  final bool isLogin;
+  // final bool isLogin;
 
   @override 
   Widget build(BuildContext context){
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
        BlocProvider(create: (context) => ChannelBloc(),),
        BlocProvider(create: (context) => SearchServerBloc(),),
        BlocProvider(create: (context) => EditServerBloc(),),
-       BlocProvider(create: (context) => ServerMembersBloc(),), 
+       BlocProvider(create: (context) => ServerMembersBloc(),),  
        BlocProvider(create: (context) => ServerDetailsBloc(),), 
        BlocProvider(create: (context) => ServerBloc(),), 
        BlocProvider(create: (context) => ServerListCubit(),), 
@@ -71,7 +72,11 @@ class MyApp extends StatelessWidget {
             displayLarge: GoogleFonts.workSans(),),
           fontFamily: GoogleFonts.roboto().fontFamily,
         ), 
-        home:isLogin?const ScreenNavBar() :const ScreenSplash() 
+        home:
+        // isLogin?
+        // const ScreenNavBar()
+        //  :
+         const ScreenSplash() 
       ));
       
      

@@ -104,12 +104,12 @@ class AuthService {
       }
       
      } catch (e) {
-       log(e.toString());
+       log("----->${e.toString()}");
      } 
      return false;
   
  }
-
+ 
 /////////////////
  
  Future<Response?> resetPasswordConfirmMail(String mail)async{

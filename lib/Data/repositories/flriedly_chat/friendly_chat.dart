@@ -134,7 +134,7 @@ class FriendlyChatService {
   } 
 
 
-  void sendMessage(String id, String message,BuildContext context) async {
+   sendMessage(String id, String message,BuildContext context) async {
 
     String senderId = await storage.readSecureData('UserID');
      

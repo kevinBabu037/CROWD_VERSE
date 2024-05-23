@@ -84,7 +84,7 @@ class ChannelsAndDetailsWidget extends StatelessWidget {
                       ),
                     )
                   ],
-                );
+                ); 
               }
               return SizedBox(
                 height: screenSize.height * 0.1+40,

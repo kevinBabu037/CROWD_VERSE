@@ -25,7 +25,7 @@ class AllChannelsListWidget extends StatelessWidget {
         if (state is ChannelLoadingState) {
           return const Expanded(child: ShimmerFriendsListTile());
         }
-        if (state is ChannelSuccessState) {
+        if (state is ChannelSuccessState){ 
           return Expanded(
             child: ListView.builder(
               itemCount: state.channels.length,
@@ -38,7 +38,7 @@ class AllChannelsListWidget extends StatelessWidget {
                       shape: Border.all(color: kClrWhite),
                       title: Text(data.name,style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),), 
                       onExpansionChanged: (value) {
-                       context.read<ExpansionCubit>().setExpansionState(data.name, value);
+                       context.read<ExpansionCubit>().setExpansionState(data.name,value);
                       },
                        initiallyExpanded: isExpanded, 
                       children: [
