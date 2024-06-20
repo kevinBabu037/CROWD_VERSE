@@ -25,7 +25,7 @@ class ServerMembers extends StatelessWidget {
              return  Center(child: kCircularProgressIndicator,);
             } 
             if (state is ServerMembersSuccessState) {
-              return ListView.separated(
+              return ListView.separated( 
                   itemBuilder: (context, index) {
                     final members = state.members[index];
                    return  ListTile(

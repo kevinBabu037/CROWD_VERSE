@@ -10,6 +10,7 @@ import 'package:crowd_verse/presentation/views/settings/widgets/privacy_policy.d
 import 'package:crowd_verse/presentation/views/settings/widgets/settings_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsAllItemswidget extends StatelessWidget {
   const SettingsAllItemswidget({
@@ -42,8 +43,8 @@ class SettingsAllItemswidget extends StatelessWidget {
                 SettingsItemWidget(
                 icon:Icons.share , 
                 title: 'Share', 
-                onTap: () {
-                  
+                onTap: ()async { 
+                  await Share.share('App Link: https://www.amazon.com/dp/B0D4ZHLY55/ref=apps_sf_sta');
                 },
                 ),
 

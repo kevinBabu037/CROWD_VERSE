@@ -15,7 +15,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
    late  io.Socket socket ;
 
-class FriendlyChatService {
+ class FriendlyChatService {
 
 
   SecureStorage  storage = SecureStorage();
@@ -41,10 +41,10 @@ class FriendlyChatService {
         List<dynamic>? friendsJsonList = jsonData['result']['FriendChat']; 
  
           if (friendsJsonList!=null) {
-        List<FriendlyChatModel> friends = friendsJsonList.map((json) { 
+        List<FriendlyChatModel> allMessages = friendsJsonList.map((json) { 
         return FriendlyChatModel.fromJson(json);  
        }).toList();   
-       return friends.reversed.toList();
+       return allMessages.reversed.toList();
       }
 
         }  
@@ -87,7 +87,7 @@ class FriendlyChatService {
    }
  
   /////////////////////////
-  
+   
 
 
    Future<void> connectSocket({BuildContext? context}) async {  
@@ -100,7 +100,7 @@ class FriendlyChatService {
           .setTransports(['websocket'])
           .setExtraHeaders({'AccessToken': accessToken})
           .disableAutoConnect()   
-          .build(),
+          .build(), 
     );
     socket.connect();
 
@@ -125,16 +125,14 @@ class FriendlyChatService {
         log('server chat🍎🍎🍎🍎:$data');  
 
         context!.read<ChannelChatBloc>().add(ReciveChannelMessageEvent(chat: chanelChat));
-        
-        
+  
      });
      
-
-     
+   
   } 
 
 
-  void sendMessage(String id, String message,BuildContext context) async {
+   sendMessage(String id, String message,BuildContext context) async {
 
     String senderId = await storage.readSecureData('UserID');
      

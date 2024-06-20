@@ -152,7 +152,7 @@ String kServerNameFormter(String serverName) {
 Widget kCircularProgressIndicator = const CircularProgressIndicator();
 
 
- 
+  
 
 String kChannelMessageFormater(String dateTimeString) {
   // Remove the "+0000 UTC" part from the string
@@ -161,25 +161,53 @@ String kChannelMessageFormater(String dateTimeString) {
   // Parse the string into a DateTime object
   DateTime dateTime = DateTime.parse(trimmedDateTimeString);
 
-  // Get the current date and time
-  DateTime now = DateTime.now();  
-     
-  // Check if the date is today
-  if (dateTime.year == now.year && dateTime.month == now.month && dateTime.day == now.day) {
-    // Return "Today" and formatted time if the message was sent today
-    String formattedDateTime = "Today ${DateFormat('hh:mm a').format(dateTime)}"; // Format time with AM/PM
-    return formattedDateTime;
-  }
+  // Format the time for display
+  String formattedTime = DateFormat('hh:mm a').format(dateTime); // Format time with AM/PM
+  return formattedTime; // Return formatted time
+} 
+ 
 
-  // Check if the date is yesterday
-  DateTime yesterday = now.subtract(const Duration(days: 1));
-  if (dateTime.year == yesterday.year && dateTime.month == yesterday.month && dateTime.day == yesterday.day) {
-    // Return "Yesterday" and formatted time if the message was sent yesterday
-    String formattedDateTime = "Yesterday ${DateFormat('hh:mm a').format(dateTime)}"; // Format time with AM/PM
-    return formattedDateTime;
-  }
+ String formatDateHeader(String dateTimeString) {
+  try {
+    // Remove the timezone abbreviation (e.g., "UTC")
+    dateTimeString = dateTimeString.replaceFirst(RegExp(r' [A-Z]{3}$'), '');
 
-  // Format the DateTime object for display
-  String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTime); // Format date
-  return formattedDateTime; // Return formatted date
+    // Parse the string into a DateTime object
+    DateTime dateTime = DateTime.parse(dateTimeString);
+
+    // Define the output format
+    DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+
+    // Format the DateTime object into a readable string
+    return outputFormat.format(dateTime);
+  } catch (e) {
+    return "Invalid date";
+  }
 }
+
+String formatDate(String dateTimeString) {
+    try {
+      // Remove the timezone abbreviation (e.g., "IST")
+      dateTimeString = dateTimeString.replaceFirst(RegExp(r' [A-Z]{3}$'), '');
+      
+      // Parse the string into a DateTime object
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      
+      // Get current time
+      DateTime now = DateTime.now();
+      
+      // Check if the date is today, yesterday, or another day
+      if (dateTime.year == now.year && dateTime.month == now.month && dateTime.day == now.day) {
+        return 'Today';
+      } else if (dateTime.year == now.year && dateTime.month == now.month && dateTime.day == now.day - 1) {
+        return 'Yesterday';
+      } else {
+        // Define the output format
+        DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+        // Format the DateTime object into a readable string
+        return outputFormat.format(dateTime);
+      }
+    } catch (e) {
+      return "no date";
+    } 
+  }

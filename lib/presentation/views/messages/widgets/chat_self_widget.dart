@@ -21,7 +21,7 @@ class ChatTxtSelf extends StatelessWidget {
         child: Container( 
       
           margin:const EdgeInsets.symmetric(horizontal: 15,vertical:7),
-         decoration: BoxDecoration(
+         decoration: BoxDecoration( 
             color:kClrBlue, 
             borderRadius: BorderRadius.circular(15)   
         ),
@@ -29,7 +29,7 @@ class ChatTxtSelf extends StatelessWidget {
            children: [
              Padding( 
                padding: const EdgeInsets.all(10),  
-               child: Text(data.message,style:const TextStyle(fontSize: 16,color: kClrWhite ),),
+                child: Text(data.message,style:const TextStyle(fontSize: 16,color: kClrWhite ),),
              ),
               Padding( 
                  padding: const EdgeInsets.all(8.0),

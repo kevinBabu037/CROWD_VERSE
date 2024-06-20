@@ -15,3 +15,9 @@ final class ReciveChannelMessageEvent extends ChannelChatEvent {
 
   ReciveChannelMessageEvent({required this.chat});
 }
+
+final class SendChannelMessageEvent extends ChannelChatEvent {
+  final ChannelChatModel chat;
+
+  SendChannelMessageEvent({required this.chat});
+}

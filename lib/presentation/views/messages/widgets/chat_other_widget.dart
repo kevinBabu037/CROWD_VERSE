@@ -28,7 +28,6 @@ class ChatTextOtherstWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-          Text(date),
         Row(
           children: [
             kWidth15,

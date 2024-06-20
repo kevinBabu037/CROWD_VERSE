@@ -179,7 +179,6 @@ class ServerService{
           }).toList();
            return members;
         }
- 
      } catch (e) {
        log(e.toString());
      }

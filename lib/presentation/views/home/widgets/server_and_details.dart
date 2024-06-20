@@ -72,7 +72,7 @@ class ChannelsAndDetailsWidget extends StatelessWidget {
                     Positioned(
                       top: 10,
                       right: 10,
-                      child: GestureDetector(
+                      child: GestureDetector( 
                         onTap: () {
                           bottomSheetServerSettings(context: context, data: state.server, serverId: state.server.serverId!);
                         },

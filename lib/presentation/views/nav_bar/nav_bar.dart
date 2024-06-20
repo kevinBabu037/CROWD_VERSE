@@ -27,9 +27,9 @@ class _ScreenNavBarState extends State<ScreenNavBar> {
    ScreenProfile()
   ]; 
 
-@override
+@override 
   void initState() {
-    FriendlyChatService().connectSocket(context: context);
+      FriendlyChatService().connectSocket(context: context);
     super.initState();
   }
 

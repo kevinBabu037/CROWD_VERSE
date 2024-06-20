@@ -23,7 +23,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'presentation/views/profile/profile_bloc/profile_details_bloc.dart';
  
  
-
+ 
 
 void main()async {
    WidgetsFlutterBinding.ensureInitialized();
@@ -45,14 +45,14 @@ class MyApp extends StatelessWidget {
       providers: [  
        BlocProvider(create: (context) => ChannelChatBloc(),),
        BlocProvider(create: (context) => CategoryBloc(),),
-       BlocProvider(create: (context) => ExpansionCubit(),),
+       BlocProvider(create: (context) => ExpansionCubit(),), 
        BlocProvider(create: (context) => ChannelBloc(),),
        BlocProvider(create: (context) => SearchServerBloc(),),
        BlocProvider(create: (context) => EditServerBloc(),),
        BlocProvider(create: (context) => ServerMembersBloc(),), 
        BlocProvider(create: (context) => ServerDetailsBloc(),), 
        BlocProvider(create: (context) => ServerBloc(),), 
-       BlocProvider(create: (context) => ServerListCubit(),), 
+       BlocProvider(create: (context) => ServerListCubit(),),   
        BlocProvider(create: (context) => NavIndex(),),  
        BlocProvider(create: (context) => MaxLineCubit(),),
        BlocProvider(create: (context) => ProfileDetailsBloc(),), 
@@ -61,9 +61,9 @@ class MyApp extends StatelessWidget {
        BlocProvider(create: (context) => FriendsBloc(),), 
        BlocProvider(create: (context) => FriendlyMessageBloc(),),
       ],
-      child:  
+      child:   
       MaterialApp( 
-        debugShowCheckedModeBanner: false, 
+        debugShowCheckedModeBanner: false,  
         theme:
          ThemeData( 
            

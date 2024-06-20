@@ -37,6 +37,12 @@ class ChannelChatBloc extends Bloc<ChannelChatEvent, ChannelChatState> {
         emit(ChannelChatSuccussState(chat: channelChat));
     });
 
+      on<SendChannelMessageEvent>((event, emit) {
+        channelChat.add(event.chat);
+        emit(ChannelChatSuccussState(chat: channelChat));
+    });
+
+
 
 
   }

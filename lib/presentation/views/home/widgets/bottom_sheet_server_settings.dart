@@ -72,7 +72,7 @@ bottomSheetServerSettings({
                   kNavigationPush(context, ServerMembers(serverId:serverId));
                 },
                 ), 
-               BlocConsumer<ServerMembersBloc, ServerMembersState>(
+               BlocConsumer<ServerMembersBloc, ServerMembersState>( 
                  listener: (context, state) {
                   if (state is LeaveServerSuccessState) {
                     kSnakBar(context, "Leaved SuccessFuly", kClrLiteGreen);
