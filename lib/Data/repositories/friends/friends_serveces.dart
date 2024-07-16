@@ -7,7 +7,7 @@ import 'package:crowd_verse/data/models/friends/friend_requests.dart';
 import 'package:crowd_verse/data/models/friends/friends_model.dart';
 import 'package:crowd_verse/data/models/friends/search_all_user.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
-import 'package:crowd_verse/presentation/utils/core/endpoints.dart';
+import 'package:crowd_verse/application/utils/core/endpoints.dart';
 import 'package:http/http.dart' as http;
 
 class  FriendsServeses {

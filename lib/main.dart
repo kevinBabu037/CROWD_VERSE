@@ -1,26 +1,28 @@
-import 'package:crowd_verse/presentation/views/authentication/login/bloc/bloc/login_bloc.dart';
-import 'package:crowd_verse/presentation/views/authentication/signup/bloc/bloc/signup_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/cubit/selected_server_border.dart';
-import 'package:crowd_verse/presentation/views/home/cubit/server_expanded.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/category_bloc/bloc/category_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/channel_chat/bloc/channel_chat_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/edit_server/bloc/edit_server_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/search_server/bloc/search_server_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/server_list_bloc/server_bloc.dart';
-import 'package:crowd_verse/presentation/views/home/server_bloc/server_members/bloc/server_members_bloc.dart';
-import 'package:crowd_verse/presentation/views/messages/cubit/max_line_textform.dart';
-import 'package:crowd_verse/presentation/views/messages/message_bloc/bloc/friendly_message_bloc.dart';
-import 'package:crowd_verse/presentation/views/nav_bar/cubit/nav_bar.dart';
-import 'package:crowd_verse/presentation/views/nav_bar/nav_bar.dart';
-import 'package:crowd_verse/presentation/views/friends/friends_bloc/friends_bloc.dart';
-import 'package:crowd_verse/presentation/views/splash/screen_splash.dart';
+import 'package:crowd_verse/application/presentation/authentication/login/bloc/bloc/login_bloc.dart';
+import 'package:crowd_verse/application/presentation/authentication/signup/bloc/bloc/signup_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/cubit/selected_server_border.dart';
+import 'package:crowd_verse/application/presentation/home/cubit/server_expanded.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/category_bloc/bloc/category_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/channel_bloc/bloc/channel_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/channel_chat/bloc/channel_chat_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/edit_server/bloc/edit_server_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/search_server/bloc/search_server_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/server_details_bloc/bloc/server_details_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/server_list_bloc/server_bloc.dart';
+import 'package:crowd_verse/application/presentation/home/server_bloc/server_members/bloc/server_members_bloc.dart';
+import 'package:crowd_verse/application/presentation/messages/cubit/max_line_textform.dart';
+import 'package:crowd_verse/application/presentation/messages/message_bloc/bloc/friendly_message_bloc.dart';
+import 'package:crowd_verse/application/presentation/nav_bar/cubit/nav_bar.dart';
+import 'package:crowd_verse/application/presentation/nav_bar/nav_bar.dart';
+import 'package:crowd_verse/application/presentation/friends/friends_bloc/friends_bloc.dart';
+import 'package:crowd_verse/application/presentation/splash/screen_splash.dart';
 import 'package:crowd_verse/data/sharedprefrense/shared_prefrense.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'presentation/views/profile/profile_bloc/profile_details_bloc.dart';
+import 'application/presentation/profile/profile_bloc/profile_details_bloc.dart';
  
  
  
@@ -29,11 +31,15 @@ void main()async {
    WidgetsFlutterBinding.ensureInitialized();
    
     bool isLoggedIn = await SharedPreferenses.getBoolValue() ?? false;
-  runApp( MyApp(isLogin:isLoggedIn));
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) =>  MyApp(isLogin:isLoggedIn),
+    ));
 }
 
 class MyApp extends StatelessWidget { 
-  const MyApp({super.key,required this.isLogin});
+  const MyApp({super.key,required this.isLogin}); 
   
   final bool isLogin;
 

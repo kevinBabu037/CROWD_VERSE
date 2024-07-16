@@ -10,7 +10,7 @@ import 'package:crowd_verse/data/models/server/search_server.dart';
 import 'package:crowd_verse/data/models/server/server_details.dart';
 import 'package:crowd_verse/data/models/server/server_members.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
-import 'package:crowd_verse/presentation/utils/core/endpoints.dart';
+import 'package:crowd_verse/application/utils/core/endpoints.dart';
 import 'package:http/http.dart' as http;
 
 class ServerService{

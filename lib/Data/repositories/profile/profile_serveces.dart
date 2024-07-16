@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:crowd_verse/data/models/profile/public_profile_model.dart';
-import 'package:crowd_verse/presentation/utils/core/endpoints.dart';
+import 'package:crowd_verse/application/utils/core/endpoints.dart';
 import 'package:crowd_verse/data/secure_storage/secure_storage.dart';
 import 'package:http/http.dart' as http;
 
