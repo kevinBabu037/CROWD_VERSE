@@ -6,7 +6,7 @@ establish the core architecture of the application.
 • Implemented token-based authentication, enabling users to create and join communities
 across various categories, featuring multi-channel chat, friend requests, user profiles, and user
 blocking.
-• Optimizes its application architecture by implementing Clean Architecture and Bloc state management for faster and smooth functionality.
+• Optimizes its application architecture by implementing Clean Architecture and Bloc state management for faster and smooth functionality. 
 • Used the http package for seamless API integration in the application.
 Technologies used: Dart, Flutter, Bloc, Socket.IO, Golang
 
