@@ -9,3 +9,4 @@ blocking.
 • Optimizes its application architecture by implementing Clean Architecture and Bloc state management for faster and smooth functionality.
 • Used the http package for seamless API integration in the application.
 Technologies used: Dart, Flutter, Bloc, Socket.IO, Golang
+
