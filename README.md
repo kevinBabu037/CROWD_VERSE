@@ -1,16 +1,11 @@
-# crowd_verse
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Discord-inspired mobile app featuring server creation, community chat, and personal messaging. Utilized
+Socket.io for real-time communication, enabling users to create and join communities seamlessly.
+• Utilized Dart and Flutter for frontend development and Golang for backend implementation to
+establish the core architecture of the application.
+• Utilized Socket.IO for a seamless real-time chat functionality.
+• Implemented token-based authentication, enabling users to create and join communities
+across various categories, featuring multi-channel chat, friend requests, user profiles, and user
+blocking.
+• Optimizes its application architecture by implementing Clean Architecture and Bloc state management for faster and smooth functionality.
+• Used the http package for seamless API integration in the application.
+Technologies used: Dart, Flutter, Bloc, Socket.IO, Golang
