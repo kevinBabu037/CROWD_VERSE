@@ -10,3 +10,4 @@ blocking.
 • Used the http package for seamless API integration in the application.
 Technologies used: Dart, Flutter, Bloc, Socket.IO, Golang
 
+![crowd_verse_stokio](https://github.com/user-attachments/assets/40bd0cdb-a202-4ec1-821d-e60196b1230a)
